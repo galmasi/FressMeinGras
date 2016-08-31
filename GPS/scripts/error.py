@@ -1,3 +1,4 @@
+import os
 import matplotlib as plt
 
 def read_coords (fname):
@@ -8,3 +9,5 @@ def read_coords (fname):
             values = line.split(',')
         except Exception, e:
             print 'ERROR: %s'%(str(e))
+            exit(1)
+
