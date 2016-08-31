@@ -21,6 +21,14 @@ def read_coords (fname):
             exit(1)
     return timeline,result
 
+def cdiff (c1,c2):
+    xd=c1[0]-c2[0]
+    yd=c1[1]-c2[1]
+    return math.sqrt(xd*xd+yd*yd)
+
+
+
+
 base='/Users/galmasi/SparkleShare/FressMeinGras/GPS/collected_datafiles/083016/'
 
 tl1,ga1 = read_coords (base+'/'+'20160830161544_ga1.txt')
@@ -37,4 +45,9 @@ usberr=[]
 for ts in tl1:
     print ts
     c1 = ga1[ts]
-    c2 = ga2[ts]
+
+    try:
+        c2 = ga2[ts]
+        d2 = cdiff(c1,c2)
+    except:
+        pass
