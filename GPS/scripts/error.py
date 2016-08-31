@@ -11,7 +11,7 @@ def read_coords (fname):
     for line in fd:
         try:
             values = line.split(',')
-            if 'GPGGA' in values[0] and values[6] > 0:
+            if 'GPGGA' in values[0] and values[6] == '1':
                 print values
                 timesig=values[1]
                 lat=float(values[2])
