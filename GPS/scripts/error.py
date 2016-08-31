@@ -19,7 +19,7 @@ def read_coords (fname):
                 result[timesig]=(lat,long)
         except Exception, e:
             print 'ERROR: %s'%(str(e))
-            print values[2],valuesp[4]
+            print values[2],values[4]
             exit(1)
     return timeline,result
 
