@@ -1,0 +1,42 @@
+#!/bin/bash
+
+##################################################################
+## strange syntax to get the file argument into gnuplot
+## pass file argument to use
+## frankeh@us.ibm.com
+##################################################################
+
+echo "num args = $#"
+if [ "$#" -ne 1 ]
+then
+	echo "Usage: $0 <filename>" && exit 1
+fi
+if [ ! -e "$1" ]
+then
+	echo "xUsage: $0 <filename>" && exit 1
+fi
+
+gnuplot -persist << EOF
+set datafile separator ","
+#FILE = '~/robot/ibm-0830-back-1'
+FILE = '$1'
+stats FILE using 3
+numR=STATS_records
+numR=numR-100
+X_min=STATS_min
+X_max=STATS_max
+stats FILE using 5
+Y_min=STATS_min
+Y_max=STATS_max
+set xrange [X_min:X_max]
+set yrange [Y_min:Y_max]
+do for [i=0:numR] {
+  a=i
+  b=i+50
+  c=i+100
+#  print b
+  plot FILE every ::a::b using 3:5 with lines lw 3 , FILE every ::b::c using 3:5 with lines lw 5 lc 5
+  pause 0.01
+}
+
+EOF
