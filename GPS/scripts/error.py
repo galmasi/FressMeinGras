@@ -11,7 +11,7 @@ def read_coords (fname):
             if 'GPGGA' in values[0]:
                 timesig=values[1]
                 lat=values[2]
-                
+                long=values[4]
         except Exception, e:
             print 'ERROR: %s'%(str(e))
             exit(1)
