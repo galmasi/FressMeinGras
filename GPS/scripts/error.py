@@ -8,12 +8,11 @@ def read_coords (fname):
     for line in fd:
         try:
             values = line.split(',')
-            if 'GPGGA' in values[0]:
+            if 'GPGGA' in values[0] and values[6] > 0:
                 timesig=values[1]
                 lat=values[2]
                 long=values[4]
-                fix=values[6]
-                print timesig,lat,long,fix
+                print timesig,lat,long
         except Exception, e:
             print 'ERROR: %s'%(str(e))
             exit(1)
