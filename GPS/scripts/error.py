@@ -23,10 +23,10 @@ def read_coords (fname):
 
 base='/Users/galmasi/SparkleShare/FressMeinGras/GPS/collected_datafiles/083016/'
 
-ga1 = read_coords ('20160830161544_ga1.txt')
-ga2 = read_coords ('20160830231412_ga2.txt')
-hf1 = read_coords ('20160830161420_hf.txt')
-usb = read_coords ('usbkey.txt')
+tl1,ga1 = read_coords ('20160830161544_ga1.txt')
+tl2,ga2 = read_coords ('20160830231412_ga2.txt')
+tl3,hf1 = read_coords ('20160830161420_hf.txt')
+tl4,usb = read_coords ('usbkey.txt')
 
 ga2err=[]
 hf1err=[]
