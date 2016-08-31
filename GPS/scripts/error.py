@@ -32,10 +32,8 @@ def cdiff (c1,c2):
 def nmeatoradian (v):
     degrees = int(v/100)
     minutes = v - 100*degrees
-
-
-
-
+    radians = math.PI/180 * (degrees + minutes/60)
+    return radians
 
 # ######## processing this now ################
 
