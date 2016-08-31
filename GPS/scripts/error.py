@@ -32,4 +32,8 @@ ga2err=[]
 hf1err=[]
 usberr=[]
 
-for 
+# we use TL1 as the base timeline
+
+for ts in tl1:
+    print ts
+
