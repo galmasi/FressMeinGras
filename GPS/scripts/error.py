@@ -45,12 +45,6 @@ def measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
 }
 
 
-
-def longtometer(c):
-    print int(long/100) * 
-
-
-
 base='/Users/galmasi/SparkleShare/FressMeinGras/GPS/collected_datafiles/083016/'
 
 tl1,ga1 = read_coords (base+'/'+'20160830161544_ga1.txt')
