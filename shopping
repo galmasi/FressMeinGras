@@ -1,0 +1,44 @@
+Here is a list of things for the drive train and charging
+we should consider to buy.
+
+WHEELS:
+=======
+
+What do you think of these. I am willing to buy them now ..
+
+http://www.ebay.com/itm/Drive-Medical-Titan-LB18CS-Power-Wheelchair-LG801-Motors-W-10x3-Flat-Free-Tires-/182258449581?hash=item2a6f733cad:g:5yUAAOSwMtxXwckz
+http://www.ebay.com/itm/PRIDE-JAZZY-ELITE-POWER-CHAIR-MOTORS-AND-WHEELS-LEFT-AND-RIGHT-GREAT-SHAPE-/322245774908?hash=item4b07584e3c:g:-Z8AAOSwHoFXtTGt
+http://www.ebay.com/itm/Pride-Jazzy-Jet-Other-Power-Wheelchair-Motors-DRVMOTR1172-73-M1H-W-3-00-4-Tires-/182261036475?hash=item2a6f9ab5bb:g:kWsAAOSwxg5XxN2p
+http://www.ebay.com/itm/Golden-Compass-Sport-Others-Power-Wheelchair-Motors-CR-6536-W-260-X-85-Tires/182258440574?_trksid=p2047675.c100009.m1982&_trkparms=aid%3D888007%26algo%3DDISC.MBE%26ao%3D1%26asc%3D38618%26meid%3D975671cf7bbd4b4aada2e3f862c8de1f%26pid%3D100009%26rk%3D1%26rkt%3D1%26sd%3D182261036475
+
+all are  $130-$150 (incl shipping), I think the Jazzy is more standard.
+
+I presume one can control the speed through some mechanism.
+
+Building a base for the above shouldn't be to difficult .. some wood, a stick saw, some screws and a single swizzle front wheel.
+Some consideration must be given how the motors will be positions, some of the above seem straight drive, others 90 degrees.
+
+Batteries:
+==========
+
+(don;t know how to compute the size we need ) .. I see 35Ah  , 15Ah,  12Ah, 5Ah  ( they come in a pack as 2 since we need 24 V )
+http://www.ebay.com/itm/SPS-2-Pack-12V-35AH-Jazzy-Select-GT-Power-Chair-Scooter-Battery-/321359996851?hash=item4ad28c67b3:g:R3MAAOSwNsdXRKEp
+
+CHARGER:
+========
+
+All of these seem to be working of a 24V / 200W system (not clear whether that is per wheel or as a pair)
+
+http://www.ebay.com/itm/Schauer-24v-7-Amp-Medical-Mobility-XLR-Connection-Automatic-Smart-Charger-JAC072/142039389974?_trksid=p2047675.c100623.m-1&_trkparms=aid%3D222007%26algo%3DSIC.MBE%26ao%3D1%26asc%3D38618%26meid%3Dc85921cf9e994fd38415d26a5d821f34%26pid%3D100623%26rk%3D2%26rkt%3D6%26sd%3D182258440574
+http://www.ebay.com/itm/24-Volt-Battery-Charger-for-Power-Wheelchair-Dual-Mode-Automatic-8-Amp-18350/222230808822?_trksid=p2047675.c100005.m1851&_trkparms=aid%3D222007%26algo%3DSIC.MBE%26ao%3D1%26asc%3D38618%26meid%3D689fc1ca59bb4318a7134965fd267934%26pid%3D100005%26rk%3D4%26rkt%3D6%26sd%3D272341602263
+ or on the cheap.
+
+http://www.ebay.com/itm/NEW-24V-4A-Scooter-Wheel-Chair-Battery-charger-Balder-F290-Pacesaver-Plus-III-/290835222331?hash=item43b7214f3b:g:pTQAAOxy3zNSkrVL (maybe this first)
+
+Can we charge batteries in series ?  ( sorry my EE knowledge is basically 0.01 on a scale from 0 - 10 )
+
+24V -> 5V reducer to hook up the PI.
+====================================
+
+http://www.ebay.com/itm/12V-24V-to-5V-5A-DC-DC-Voltage-Regulator-Converter-Buck-Module-Car-Acid-Battery-/231758343557?hash=item35f5dfad85:g:CkoAAOSwLzdWTcO4
+
