@@ -29,8 +29,19 @@ def cdiff (c1,c2):
     yd=c1[1]-c2[1]
     return math.sqrt(xd*xd+yd*yd)
 
+def nmeatoradian (v):
+    degrees = int(v/100)
+    minutes = v - 100*degrees
+
+
+
+
 
 # ######## processing this now ################
+
+
+
+
 
 def measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
     var R = 6378.137; // Radius of earth in KM
