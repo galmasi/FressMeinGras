@@ -9,7 +9,8 @@ def read_coords (fname):
         try:
             values = line.split(',')
             if 'GPGGA' in values[0]:
-                print values
+                timesig=values[1]
+                
         except Exception, e:
             print 'ERROR: %s'%(str(e))
             exit(1)
