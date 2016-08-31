@@ -5,6 +5,7 @@ import matplotlib as plt
 def read_coords (fname):
     fd = open(fname, 'rd')
     count=0
+    result=[]
     for line in fd:
         try:
             values = line.split(',')
