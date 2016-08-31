@@ -32,11 +32,7 @@ def nmea2rad (v):
 
 # ######## processing this now ################
 
-
-
-
-
-def measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
+def nmea2meters (lat, lon, lat2, lon2){  // generally used geo measurement function
     var R = 6378.137; // Radius of earth in KM
     var dLat = (lat2 - lat1) * Math.PI / 180;
     var dLon = (lon2 - lon1) * Math.PI / 180;
