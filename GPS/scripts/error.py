@@ -30,6 +30,8 @@ def cdiff (c1,c2):
     return math.sqrt(xd*xd+yd*yd)
 
 
+# ######## processing this now ################
+
 def measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
     var R = 6378.137; // Radius of earth in KM
     var dLat = (lat2 - lat1) * Math.PI / 180;
