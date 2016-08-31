@@ -27,3 +27,4 @@ base='/Users/galmasi/SparkleShare/FressMeinGras/GPS/collected_datafiles/083016/'
 ga1 = read_coords ('20160830161544_ga1.txt')
 ga2 = read_coords ('20160830231412_ga2.txt')
 hf1 = read_coords ('20160830161420_hf.txt')
+usb = read_coords ('usbkey.txt')
