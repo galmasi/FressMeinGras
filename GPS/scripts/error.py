@@ -50,5 +50,6 @@ for ts in tl1:
     try:
         c2 = ga2[ts]
         d2 = cdiff(c1,c2)
+        print d2
     except:
         pass
