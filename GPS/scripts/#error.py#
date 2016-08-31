@@ -8,3 +8,5 @@ def read_coords (fname):
             values = line.split(',')
         except Exception, e:
             print 'ERROR: %s'%(str(e))
+            exit(0)
+
