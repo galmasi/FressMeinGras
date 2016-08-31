@@ -36,4 +36,5 @@ usberr=[]
 
 for ts in tl1:
     print ts
-
+    c1 = ga1[ts]
+    c2 = ga2[ts]
