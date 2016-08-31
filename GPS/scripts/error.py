@@ -13,8 +13,8 @@ def read_coords (fname):
             values = line.split(',')
             if 'GPGGA' in values[0] and values[6] > 0:
                 timesig=values[1]
-                lat=values[2]
-                long=values[4]
+                lat=float(values[2])
+                long=float(values[4])
                 timeline.append(timesig)
                 result[timesig]=(lat,long)
         except Exception, e:
