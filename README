@@ -1,0 +1,23 @@
+This project is an attempt to build an autonomous lawn mower from scratch.
+Hence the project name "Fress Mein Gras" which is german for "eat my grass".
+
+The project will go through a few steps:
+
+a) first we will investigate whether GPS can be used to accurately 
+   track the position of a rover within approximately 1 foot.
+   We are considering a technology called RTKLIB for this, that relies
+   on a fixed reference GPS base and the rover GPS base to eliminate
+   GPS errors.
+   If no possible, then other sensor technologies will be identified.
+   One goal is to NOT lay down a guide line.
+
+b) will require to build a rover base and interface with the GPS
+   guided control system.
+   Thoughts here are using motors typically used in wheel chairs.
+
+c) build a charging station as the rover will likely not be able 
+   to run for long times.
+
+
+Hubertus Franke (frankeh@us.ibm.com)
+Gheorghe Almasi (gheorghe@us.ibm.com)
