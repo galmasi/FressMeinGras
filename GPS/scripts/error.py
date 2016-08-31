@@ -8,7 +8,10 @@ def read_coords (fname):
     for line in fd:
         try:
             values = line.split(',')
+            print values
         except Exception, e:
             print 'ERROR: %s'%(str(e))
             exit(1)
 
+
+read_coords ('/Users/galmasi/SparkleShare/
