@@ -24,11 +24,6 @@ def read_coords (fname):
             exit(1)
     return timeline,result
 
-def cdiff (c1,c2):
-    xd=c1[0]-c2[0]
-    yd=c1[1]-c2[1]
-    return math.sqrt(xd*xd+yd*yd)
-
 def nmea2rad (v):
     degrees = int(v/100)
     minutes = v - 100*degrees
@@ -52,6 +47,13 @@ def measure(lat1, lon1, lat2, lon2){  // generally used geo measurement function
     var d = R * c;
     return d * 1000; // meters
 }
+
+
+def cdiff (c1,c2):
+    xd=c1[0]-c2[0]
+    yd=c1[1]-c2[1]
+    return math.sqrt(xd*xd+yd*yd)
+
 
 
 base='/Users/galmasi/SparkleShare/FressMeinGras/GPS/collected_datafiles/083016/'
