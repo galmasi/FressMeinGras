@@ -14,4 +14,4 @@ def read_coords (fname):
             exit(1)
 
 
-read_coords ('/Users/galmasi/SparkleShare/FressMeinGrass/GPS/collected_datafiles/083016/20160830161544_ga1.txt')
+read_coords ('/Users/galmasi/SparkleShare/FressMeinGras/GPS/collected_datafiles/083016/20160830161544_ga1.txt')
