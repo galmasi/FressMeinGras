@@ -67,3 +67,10 @@ for ts in tl1:
         print ts, d2
     except:
         pass
+
+    try:
+        c3 = ga3[ts]
+        d3 = cdiff(c1,c2)
+        print ts, d3
+    except:
+        pass
