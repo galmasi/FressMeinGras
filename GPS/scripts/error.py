@@ -5,6 +5,7 @@ import matplotlib as plt
 def read_coords (fname):
     fd = open(fname, 'rd')
     count=0
+    timeline=[]
     result={}
     for line in fd:
         try:
@@ -13,10 +14,12 @@ def read_coords (fname):
                 timesig=values[1]
                 lat=values[2]
                 long=values[4]
+                timeline.append(timesig)
                 result[timesig]=(lat,long)
         except Exception, e:
             print 'ERROR: %s'%(str(e))
             exit(1)
+    return timeline,result
 
 base='/Users/galmasi/SparkleShare/FressMeinGras/GPS/collected_datafiles/083016/'
 
