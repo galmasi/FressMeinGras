@@ -13,7 +13,7 @@ def read_coords (fname):
                 timesig=values[1]
                 lat=values[2]
                 long=values[4]
-                print timesig,lat,long
+                result.append((timesig,lat,long))
         except Exception, e:
             print 'ERROR: %s'%(str(e))
             exit(1)
