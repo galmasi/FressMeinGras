@@ -12,6 +12,8 @@ def read_coords (fname):
                 timesig=values[1]
                 lat=values[2]
                 long=values[4]
+                fix=values[6]
+                print timesig,lat,long,fix
         except Exception, e:
             print 'ERROR: %s'%(str(e))
             exit(1)
