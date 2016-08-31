@@ -44,12 +44,11 @@ usberr=[]
 # we use TL1 as the base timeline
 
 for ts in tl1:
-    print ts
     c1 = ga1[ts]
 
     try:
         c2 = ga2[ts]
         d2 = cdiff(c1,c2)
-        print d2
+        print ts, d2
     except:
         pass
