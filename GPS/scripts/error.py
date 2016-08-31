@@ -1,6 +1,7 @@
 import os
 import sys
 import matplotlib as plt
+import math
 
 def read_coords (fname):
     fd = open(fname, 'rd')
