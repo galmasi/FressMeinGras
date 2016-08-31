@@ -15,11 +15,11 @@ def read_coords (fname):
                 timesig=values[1]
                 lat=float(values[2])
                 long=float(values[4])
-                print lat,long
                 timeline.append(timesig)
                 result[timesig]=(lat,long)
         except Exception, e:
             print 'ERROR: %s'%(str(e))
+            print lat,long
             exit(1)
     return timeline,result
 
