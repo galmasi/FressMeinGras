@@ -12,6 +12,7 @@ def read_coords (fname):
         try:
             values = line.split(',')
             if 'GPGGA' in values[0] and values[6] > 0:
+                print values
                 timesig=values[1]
                 lat=float(values[2])
                 long=float(values[4])
