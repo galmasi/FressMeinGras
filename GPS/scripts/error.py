@@ -29,7 +29,7 @@ def cdiff (c1,c2):
     yd=c1[1]-c2[1]
     return math.sqrt(xd*xd+yd*yd)
 
-def nmeatoradian (v):
+def nmea2rad (v):
     degrees = int(v/100)
     minutes = v - 100*degrees
     radians = math.PI/180 * (degrees + minutes/60)
