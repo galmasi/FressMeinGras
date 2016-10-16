@@ -14,11 +14,8 @@ void CommandInterpreter_init() {
 /* ************************************************** */
 /*  is a complete command ready for interpretation?   */
 /* ************************************************** */
-int CommandInterpreter_ready() {
-  return cmd_ready;
-}
 
-char CommandInterpreter_lastCommand() {
+char CommandInterpreter_command() {
   return cmd_command;
 }
 
@@ -30,49 +27,51 @@ int CommandInterpreter_param() {
 /*    check and consume incoming command from BT      */
 /* ************************************************** */
 
-void CommandInterpreter_loop() {
+bool CommandInterpreter_loop() {
   cmd_ready = 0;
-  if (!btSerial.available()) return;
+  if (!btSerial.available()) return false;
 
   char c = btSerial.read();
   //Serial.print("Got char: ");
   //Serial.write(c);
   //Serial.println("");
   if (cmd_mode == 0) {
-    // waiting for a command
     switch (c) {
+      // these commands have parameters, we have to wait for the param
       case 'L':
       case 'R': {
         cmd_mode          = 1;
         cmd_param         = 0;
         cmd_lastcommand   = c;
-        cmd_ready         = 0;
-        break;
+        return false;
       }
+      // these commands are singletons, return them immediately
       case 'S':
       case 'G' {
         cmd_mode         = 0;
         cmd_param        = 0;
         cmd_lastcommand  = c;
-        cmd_ready        = 1;
-        break;
+        return true;
       }
       default: {
-        cmd_ready        = 0;
-        break;
+        return false;
       }
-  } else if (cmd_mode == 1) {
+    }
+  } else if (cmd_mode > 0) {
+    // newline finalizes the command
     if (c == '\n') {
        cmd_mode = 0;
-       cmd_ready = 1;
+       return true;
     }
+
+    // accumulating digits for the command parameter
     else if ('0' <= c && c <= '9') {
        cmd_param = cmd_param * 10 + ((int)c-(int)'0');
        cmd_mode = 1;
-       cmd_ready = 1;
+       return false;
     }
     else {
-      cmd_ready = 0;
+      return true;
     }
   }
 }
