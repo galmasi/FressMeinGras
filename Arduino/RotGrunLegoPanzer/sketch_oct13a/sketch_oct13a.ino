@@ -18,9 +18,9 @@
 /* *********************************************** */
 
 #include "MotorControl.h"
+#include "Radar.h"
 #include "CommandInterpreter.h"
 #include "CommandExecutor.h"
-#include "Radar.h"
 
 void setup() {
     Serial.begin(9600);    

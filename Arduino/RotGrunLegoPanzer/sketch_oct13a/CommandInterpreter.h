@@ -46,7 +46,8 @@ bool CommandInterpreter_loop() {
       }
       // these commands are singletons, return them immediately
       case 'S':
-      case 'G': {
+      case 'G':
+      case 'P': {
         cmd_mode         = 0;
         cmd_param        = 0;
         cmd_command      = c;

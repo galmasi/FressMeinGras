@@ -1,5 +1,8 @@
+void CommandExecutor_init() {
+}
 
-inline void CommandExecutor() {
+
+inline void CommandExecutor_loop () {
   char c = CommandInterpreter_command();
   switch (c) {
       case 'G': {
@@ -30,6 +33,10 @@ inline void CommandExecutor() {
         Serial.print(p);
         Serial.println (d?" FWD":"BACK");
         MotorControl_setRight (p, d);
+        break;
+     }
+     case 'P': {
+        Radar_ping();
         break;
      }
   }
