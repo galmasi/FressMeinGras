@@ -1,15 +1,14 @@
 #include <SoftwareSerial.h>
 
-void CommandInterpreter_Init() {
-  
+int cmd_mode=0;
+char cmd_lastcommand;
+int cmd_param;
+
+void CommandInterpreter_init() {
+  btSerial.begin(9600);
+    
 }
 
-
-
-
-int _mode=0;
-char _cmd;
-int _n;
 
 int actionChar (char c) {
   //Serial.print("Got char: ");

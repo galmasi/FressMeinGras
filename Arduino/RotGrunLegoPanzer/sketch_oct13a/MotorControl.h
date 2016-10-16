@@ -21,7 +21,7 @@ int mc_stopped    = 1;
 /* set pin modes, and make sure motor will be stopped */
 /* *********************************************** */
 
-void MotorControl_Init() {
+void MotorControl_init() {
   pinMode(MC_PWMAPIN, OUTPUT);
   pinMode(MC_PWMBPIN, OUTPUT);
   pinMode(MC_DIRAPIN, OUTPUT);

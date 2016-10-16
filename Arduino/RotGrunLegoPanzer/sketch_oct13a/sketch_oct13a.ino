@@ -5,48 +5,49 @@ SoftwareSerial btSerial(13,12);
 
 
 void setup() {
-    
-    Serial.begin(9600);
-    
-    btSerial.begin(9600);
-    Serial.println("Hello1");
-    MotorControl_Init();
+    Serial.begin(9600);    
+    Serial.println("FressMeinGrass starting");
+    MotorControl_init();
+    CommandInterpreter_init();
 }
 
 
 
 void loop() {
   CommandInterpreter_loop();
-  
-   if (btSerial.available()) {
-       char c = btSerial.read();
-       if (actionChar (c)) {
-          if (_cmd == 'G') {
-            Serial.println("GO");
-            _stopped = 0;
-          }
-          else if (_cmd == 'S') {
-            Serial.println("STOP");
-            _stopped = 1;
-          }
-          else if (_cmd == 'L') {
-            Serial.print ("LEFT ");
-            Serial.println(_n);
-            MotorControl_SetLeft (abs(_n-256), (_n > 256));
-          }
-          else if (_cmd == 'R') {
-            Serial.print ("RIGHT ");
-            Serial.println(_n);
-            MotorControl_SetRight (abs(_n-256), (_n > 256));
+
+  char c = CommandInterpreter_command();
+  switch (c) {
+    case 'G': {
+      Serial.println("GO");
+      MotorControl_start();
+      break;
+    }
+    case 'S': {
+      Serial.println("STOP");
+      MotorControl_stop();
+      break;
+    }
+    case 'L': {
+      int n = CommandInterpreter_argument();
+      int p = abs(_n-256);
+      int d = (n>256);
+      Serial.print ("LEFT ");
+      Serial.print(p);
+      Serial.println (d?" FWD":"BACK");
+      MotorControl_setLeft (p, d);
+      break;
+    case 'R': {
+      int n = CommandInterpreter_argument();
+      int p = abs(_n-256);
+      int d = (n>256);
+      Serial.print ("RIGHT ");
+      Serial.print(p);
+      Serial.println (d?" FWD":"BACK");
+      MotorControl_setRight (p, d);
           }
        }
-   }
-   if (Serial.available()) {
-       char c = Serial.read();
-       btSerial.write(c);
-       Serial.write(c);
-   }
-   
+   }   
    MotorControl_loop();
 }
 
