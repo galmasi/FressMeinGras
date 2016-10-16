@@ -1,5 +1,5 @@
 
-void CommandExecutor() {
+inline void CommandExecutor() {
   char c = CommandInterpreter_command();
   switch (c) {
       case 'G': {
@@ -15,7 +15,7 @@ void CommandExecutor() {
       case 'L': {
         int n = CommandInterpreter_param();
         int p = abs(n-256);
-        int d = (n>256);
+        bool d = (n>256);
         Serial.print ("LEFT ");
         Serial.print(p);
         Serial.println (d?" FWD":"BACK");
@@ -25,7 +25,7 @@ void CommandExecutor() {
       case 'R': {
         int n = CommandInterpreter_param();
         int p = abs(n-256);
-        int d = (n>256);
+        bool d = (n>256);
         Serial.print ("RIGHT ");
         Serial.print(p);
         Serial.println (d?" FWD":"BACK");

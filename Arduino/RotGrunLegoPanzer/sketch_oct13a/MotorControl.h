@@ -11,10 +11,10 @@
 /* motor control state */
 /* ******************* */
 
-int  mc_leftPower  = 0;
-bool mc_leftDir    = 1;
-int  mc_rightPower = 0;
-bool mc_rightDir   = 1;
+byte mc_leftPower  = 0;
+bool mc_leftDir    = true;
+byte mc_rightPower = 0;
+bool mc_rightDir   = true;
 bool mc_stopped    = true;
 
 /* *********************************************** */
@@ -56,12 +56,12 @@ inline void MotorControl_stop () {
   mc_stopped = true;
 }
 
-inline void MotorControl_setLeft (int n, int dir) {
+inline void MotorControl_setLeft (byte n, bool dir) {
   mc_leftPower = n;
   mc_leftDir = dir;
 }
 
-inline void MotorControl_setRight (int n, int dir) {
+inline void MotorControl_setRight (byte n, bool dir) {
   mc_rightPower = n;
   mc_rightDir = dir;
 }

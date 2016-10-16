@@ -1,6 +1,6 @@
 #include <SoftwareSerial.h>
 
-int  cmd_mode    = 0;      /* set to 1 when waiting for digits */
+byte cmd_mode    = 0;      /* set to 1 when waiting for digits */
 char cmd_command = ' ';    /* the last command we received */
 int  cmd_param   = 0;      /* parameter received with command */
 
