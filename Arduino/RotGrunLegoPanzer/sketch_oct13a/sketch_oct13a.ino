@@ -1,3 +1,4 @@
+
 /* *********************************************** */
 /*      GLOBAL PIN ASSIGNMENTS                     */
 /* *********************************************** */
@@ -10,8 +11,8 @@
 #define BTSERIAL_TX 12
 #define BTSERIAL_RX 13
 
-#define RADAR_PING 10
-#define RADAR_PONG 11
+#define RADAR_PINGPIN 10
+#define RADAR_PONGPIN 11
 
 /* *********************************************** */
 /*     subsystem definitions                       */
@@ -34,7 +35,7 @@ void setup() {
 void loop() {
   Radar_loop();
   MotorControl_loop();
-  if (CommandInterpreter_loop()) CommandExecutor();
+  if (CommandInterpreter_loop()) CommandExecutor_loop();
 }
 
 

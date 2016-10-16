@@ -19,9 +19,9 @@ void Radar_loop() {
   bool z = digitalRead(RADAR_PONGPIN);
   if (z) {
     radar_running = false;
-    radar_timer = millis() - radar_timer();
+    radar_timer = millis() - radar_timer;
     Serial.print("Radar return ms = ");
-    Serial.writeln(radar_timer);
+    Serial.println(radar_timer);
   }
 }
 
