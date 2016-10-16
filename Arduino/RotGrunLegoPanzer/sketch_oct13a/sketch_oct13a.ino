@@ -1,14 +1,16 @@
 #include <SoftwareSerial.h>
+#include "MotorControl.h"
 
-SoftwareSerial mySerial(13,12);
+SoftwareSerial btSerial(13,12);
 
 
 void setup() {
     
     Serial.begin(9600);
     
-    mySerial.begin(9600);
+    btSerial.begin(9600);
     Serial.println("Hello1");
+    MotorControl_Init();
 }
 
 int _mode=0;
@@ -56,8 +58,8 @@ int actionChar (char c) {
 
 
 void loop() {
-   if (mySerial.available()) {
-       char c = mySerial.read();
+   if (btSerial.available()) {
+       char c = btSerial.read();
        if (actionChar (c)) {
           if (_cmd == 'G') {
             Serial.println("GO");
@@ -70,62 +72,21 @@ void loop() {
           else if (_cmd == 'L') {
             Serial.print ("LEFT ");
             Serial.println(_n);
-            _leftPower = abs(_n-256);
-            _leftDir = (_n > 256);
+            MotorControl_SetLeft (abs(_n-256), (_n > 256));
           }
           else if (_cmd == 'R') {
             Serial.print ("RIGHT ");
             Serial.println(_n);
-            _rightPower = abs(_n-256);
-            _rightDir = (_n > 256);
+            MotorControl_SetRight (abs(_n-256), (_n > 256));
           }
        }
    }
    if (Serial.available()) {
        char c = Serial.read();
-       mySerial.write(c);
+       btSerial.write(c);
        Serial.write(c);
    }
 }
 
 
-/* *********************************************** */
-/*  the pins below are defined in the Velleman kit */
-/* *********************************************** */
-int mc_pwmAPin = 3;
-int mc_dirAPin = 2;
-int mc_pwmBPin = 9;
-int mc_dirBPin = 8;
-
-/* ******************* */
-/* motor control state */
-/* ******************* */
-
-int mc_leftPower  = 0;
-int mc_leftDir    = 1;
-int mc_rightPower = 0;
-int mc_rightDir   = 1;
-int mc_stopped    = 1;
-
-void MotorControlInit() {
-  pinMode(_pwmAPin, OUTPUT);
-  pinMode(_dirAPin, OUTPUT);
-  pinMode(_pwmBPin, OUTPUT);
-  pinMode(_dirBPin, OUTPUT);
-  mc_stopped = 1;
-}
-
-void MotorControlLoop() {
-   if (mc_stopped) {
-     analogWrite(mc_pwmAPin, 0);
-     analogWrite(mc_pwmBPin, 0);
-   }
-   else
-   {
-     analogWrite(mc_pwmAPin, mc_leftPower);
-     digitalWrite(mc_dirAPin, mc_leftDir);
-     analogWrite(mc_pwmBPin, mc_rightPower);
-     digitalWrite(mc_dirBPin, mc_rightDir);
-   }  
-}
 
