@@ -1,6 +1,6 @@
 #include <SoftwareSerial.h>
 
-SoftwareSerial mySerial(12,13);
+SoftwareSerial mySerial(13,12);
 
 int _pwmAPin = 3;
 int _dirAPin = 2;
