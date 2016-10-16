@@ -11,17 +11,17 @@
 /* motor control state */
 /* ******************* */
 
-int mc_leftPower  = 0;
-int mc_leftDir    = 1;
-int mc_rightPower = 0;
-int mc_rightDir   = 1;
-int mc_stopped    = 1;
+int  mc_leftPower  = 0;
+bool mc_leftDir    = 1;
+int  mc_rightPower = 0;
+bool mc_rightDir   = 1;
+bool mc_stopped    = true;
 
 /* *********************************************** */
 /* set pin modes, and make sure motor will be stopped */
 /* *********************************************** */
 
-void MotorControl_init() {
+inline void MotorControl_init() {
   pinMode(MC_PWMAPIN, OUTPUT);
   pinMode(MC_PWMBPIN, OUTPUT);
   pinMode(MC_DIRAPIN, OUTPUT);
@@ -48,20 +48,20 @@ void MotorControl_loop() {
    }  
 }
 
-void MotorControl_start () {
-  mc_stopped = 0;
+inline void MotorControl_start () {
+  mc_stopped = false;
 }
 
-void MotorControl_stop () {
-  mc_stopped = 1;
+inline void MotorControl_stop () {
+  mc_stopped = true;
 }
 
-void MotorControl_setLeft (int n, int dir) {
+inline void MotorControl_setLeft (int n, int dir) {
   mc_leftPower = n;
   mc_leftDir = dir;
 }
 
-void MotorControl_setRight (int n, int dir) {
+inline void MotorControl_setRight (int n, int dir) {
   mc_rightPower = n;
   mc_rightDir = dir;
 }

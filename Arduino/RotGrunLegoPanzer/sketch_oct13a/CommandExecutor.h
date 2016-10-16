@@ -14,16 +14,17 @@ void CommandExecutor() {
       }
       case 'L': {
         int n = CommandInterpreter_param();
-        int p = abs(_n-256);
+        int p = abs(n-256);
         int d = (n>256);
         Serial.print ("LEFT ");
         Serial.print(p);
         Serial.println (d?" FWD":"BACK");
         MotorControl_setLeft (p, d);
         break;
+      }
       case 'R': {
         int n = CommandInterpreter_param();
-        int p = abs(_n-256);
+        int p = abs(n-256);
         int d = (n>256);
         Serial.print ("RIGHT ");
         Serial.print(p);
