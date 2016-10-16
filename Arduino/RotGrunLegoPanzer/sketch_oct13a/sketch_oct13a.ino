@@ -86,6 +86,8 @@ void loop() {
        btSerial.write(c);
        Serial.write(c);
    }
+   
+   MotorControl_loop();
 }
 
 
