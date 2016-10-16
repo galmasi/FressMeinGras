@@ -1,27 +1,21 @@
-int radar_timer = 0;
-bool radar_running = false;
-
 void Radar_init() {
   pinMode(RADAR_PINGPIN, OUTPUT);
   pinMode(RADAR_PONGPIN, INPUT);
 }
 
-void Radar_ping() {
-  if (radar_running) return;
-  radar_running = true;
-  radar_timer = millis();
-  digitalWrite(RADAR_PINGPIN, 1);
-  digitalWrite(RADAR_PINGPIN, 0);
+void Radar_loop() {
 }
 
-void Radar_loop() {
-  if (!radar_running) return;
-  bool z = digitalRead(RADAR_PONGPIN);
-  if (z) {
-    radar_running = false;
-    radar_timer = millis() - radar_timer;
-    Serial.print("Radar return ms = ");
-    Serial.println(radar_timer);
-  }
+long Radar_ping() {
+  // send pulse
+  digitalWrite(RADAR_PINGPIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(RADAR_PINGPIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(RADAR_PINGPIN, LOW);
+  // wait for pulse
+  long duration = pulseIn(RADAR_PONGPIN, HIGH);
+  long distance = (duration/2) / 29.1;
+  return distance;
 }
 

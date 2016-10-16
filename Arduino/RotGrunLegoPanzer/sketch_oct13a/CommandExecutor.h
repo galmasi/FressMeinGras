@@ -36,8 +36,9 @@ inline void CommandExecutor_loop () {
         break;
      }
      case 'P': {
-        Serial.println("PING");
-        Radar_ping();
+        long distance = Radar_ping();
+        Serial.print("PING ");
+        Serial.println(distance);
         break;
      }
   }
