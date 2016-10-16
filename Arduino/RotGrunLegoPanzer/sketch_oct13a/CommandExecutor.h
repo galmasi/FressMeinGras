@@ -36,6 +36,7 @@ inline void CommandExecutor_loop () {
         break;
      }
      case 'P': {
+        Serial.println("PING");
         Radar_ping();
         break;
      }
