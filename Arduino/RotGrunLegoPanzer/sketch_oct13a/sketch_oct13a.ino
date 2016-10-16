@@ -2,23 +2,8 @@
 
 SoftwareSerial mySerial(13,12);
 
-int _pwmAPin = 3;
-int _dirAPin = 2;
-int _pwmBPin = 9;
-int _dirBPin = 8;
-
-int _leftPower = 0;
-int _leftDir = 1;
-int _rightPower = 0;
-int _rightDir = 1;
-
-int _stopped = 1;
 
 void setup() {
-    pinMode(_pwmAPin, OUTPUT);
-    pinMode(_dirAPin, OUTPUT);
-    pinMode(_pwmBPin, OUTPUT);
-    pinMode(_dirBPin, OUTPUT);
     
     Serial.begin(9600);
     
@@ -101,16 +86,46 @@ void loop() {
        mySerial.write(c);
        Serial.write(c);
    }
-   if (_stopped) {
-     analogWrite(_pwmAPin, 0);
-     analogWrite(_pwmBPin, 0);
+}
+
+
+/* *********************************************** */
+/*  the pins below are defined in the Velleman kit */
+/* *********************************************** */
+int mc_pwmAPin = 3;
+int mc_dirAPin = 2;
+int mc_pwmBPin = 9;
+int mc_dirBPin = 8;
+
+/* ******************* */
+/* motor control state */
+/* ******************* */
+
+int mc_leftPower  = 0;
+int mc_leftDir    = 1;
+int mc_rightPower = 0;
+int mc_rightDir   = 1;
+int mc_stopped    = 1;
+
+void MotorControlInit() {
+  pinMode(_pwmAPin, OUTPUT);
+  pinMode(_dirAPin, OUTPUT);
+  pinMode(_pwmBPin, OUTPUT);
+  pinMode(_dirBPin, OUTPUT);
+  mc_stopped = 1;
+}
+
+void MotorControlLoop() {
+   if (mc_stopped) {
+     analogWrite(mc_pwmAPin, 0);
+     analogWrite(mc_pwmBPin, 0);
    }
    else
    {
-     analogWrite(_pwmAPin, _leftPower);
-     digitalWrite(_dirAPin, _leftDir);
-
-     analogWrite(_pwmBPin, _rightPower);
-     digitalWrite(_dirBPin, _rightDir);
-   }
+     analogWrite(mc_pwmAPin, mc_leftPower);
+     digitalWrite(mc_dirAPin, mc_leftDir);
+     analogWrite(mc_pwmBPin, mc_rightPower);
+     digitalWrite(mc_dirBPin, mc_rightDir);
+   }  
 }
+
