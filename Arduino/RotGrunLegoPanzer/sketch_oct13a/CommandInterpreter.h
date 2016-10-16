@@ -1,90 +1,79 @@
 #include <SoftwareSerial.h>
 
-int cmd_mode=0;
-char cmd_lastcommand;
-int cmd_param;
+int  cmd_mode    = 0;      /* set to 1 when waiting for digits */
+char cmd_command = ' ';    /* the last command we received */
+int  cmd_param   = 0;      /* parameter received with command */
+int  cmd_ready   = 0;      /* is command ready for executor */
 
 void CommandInterpreter_init() {
   btSerial.begin(9600);
-    
+  cmd_ready = 0;
+  cmd_command = ' ';    
 }
 
+/* ************************************************** */
+/*  is a complete command ready for interpretation?   */
+/* ************************************************** */
+int CommandInterpreter_ready() {
+  return cmd_ready;
+}
 
-int actionChar (char c) {
+char CommandInterpreter_lastCommand() {
+  return cmd_command;
+}
+
+int CommandInterpreter_param() {
+  return cmd_param;
+}
+
+/* ************************************************** */
+/*    check and consume incoming command from BT      */
+/* ************************************************** */
+
+void CommandInterpreter_loop() {
+  cmd_ready = 0;
+  if (!btSerial.available()) return;
+
+  char c = btSerial.read();
   //Serial.print("Got char: ");
   //Serial.write(c);
   //Serial.println("");
-  if (_mode == 0) {
+  if (cmd_mode == 0) {
     // waiting for a command
-    if (c == 'L' || c == 'R' ) {
-      _mode = 1;
-      _n = 0;
-      _cmd = c;
-      return 0;
-    }
-    else if (c == 'S' || c == 'G') {
-      _mode = 0;
-      _n = 0;
-      _cmd = c;
-      return 1;
-    }
-    else
-      return 0;
-  }
-  else if (_mode == 1) {
-    // waiting for a number or return
+    switch (c) {
+      case 'L':
+      case 'R': {
+        cmd_mode          = 1;
+        cmd_param         = 0;
+        cmd_lastcommand   = c;
+        cmd_ready         = 0;
+        break;
+      }
+      case 'S':
+      case 'G' {
+        cmd_mode         = 0;
+        cmd_param        = 0;
+        cmd_lastcommand  = c;
+        cmd_ready        = 1;
+        break;
+      }
+      default: {
+        cmd_ready        = 0;
+        break;
+      }
+  } else if (cmd_mode == 1) {
     if (c == '\n') {
-       _mode = 0;
-       return 1;
+       cmd_mode = 0;
+       cmd_ready = 1;
     }
     else if ('0' <= c && c <= '9') {
-       _n = _n * 10 + ((int)c-(int)'0');
-       _mode = 1;
-       return 0;
+       cmd_param = cmd_param * 10 + ((int)c-(int)'0');
+       cmd_mode = 1;
+       cmd_ready = 1;
     }
     else {
-      return 0;
+      cmd_ready = 0;
     }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-   if (btSerial.available()) {
-       char c = btSerial.read();
-       if (actionChar (c)) {
-          if (_cmd == 'G') {
-            Serial.println("GO");
-            _stopped = 0;
-          }
-          else if (_cmd == 'S') {
-            Serial.println("STOP");
-            _stopped = 1;
-          }
-          else if (_cmd == 'L') {
-            Serial.print ("LEFT ");
-            Serial.println(_n);
-            MotorControl_SetLeft (abs(_n-256), (_n > 256));
-          }
-          else if (_cmd == 'R') {
-            Serial.print ("RIGHT ");
-            Serial.println(_n);
-            MotorControl_SetRight (abs(_n-256), (_n > 256));
-          }
-       }
-   }
-   if (Serial.available()) {
-       char c = Serial.read();
-       btSerial.write(c);
-       Serial.write(c);
-   }
 
