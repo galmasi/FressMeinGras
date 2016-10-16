@@ -5,6 +5,8 @@ char cmd_command = ' ';    /* the last command we received */
 int  cmd_param   = 0;      /* parameter received with command */
 int  cmd_ready   = 0;      /* is command ready for executor */
 
+SoftwareSerial btSerial(13,12);
+
 void CommandInterpreter_init() {
   btSerial.begin(9600);
   cmd_ready = 0;
