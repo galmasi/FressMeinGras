@@ -1,3 +1,4 @@
+
 void CommandExecutor_init() {
 }
 
@@ -6,22 +7,20 @@ inline void CommandExecutor_loop () {
   char c = CommandInterpreter_command();
   switch (c) {
       case 'G': {
-        Serial.println("GO");
+        CommandInterpreter_log("GO", 0);
         MotorControl_start();
         break;
       }
       case 'S': {
-        Serial.println("STOP");
         MotorControl_stop();
+        CommandInterpreter_log("STOP",0);
         break;
       }
       case 'L': {
         int n = CommandInterpreter_param();
         int p = abs(n-256);
         bool d = (n>256);
-        Serial.print ("LEFT ");
-        Serial.print(p);
-        Serial.println (d?" FWD":"BACK");
+        //CommandInterpreter_log("LEFT ", p*(d?1:-1));
         MotorControl_setLeft (p, d);
         break;
       }
@@ -29,9 +28,7 @@ inline void CommandExecutor_loop () {
         int n = CommandInterpreter_param();
         int p = abs(n-256);
         bool d = (n>256);
-        Serial.print ("RIGHT ");
-        Serial.print(p);
-        Serial.println (d?" FWD":"BACK");
+        //CommandInterpreter_log("RIGHT ", p*(d?1:-1));
         MotorControl_setRight (p, d);
         break;
      }

@@ -3,7 +3,16 @@ void Radar_init() {
   pinMode(RADAR_PONGPIN, INPUT);
 }
 
+long Radar_ping();
+
+// every 15000 counts, run a radar loop
+long _rdrctr = 0;
 void Radar_loop() {
+  if ((_rdrctr%15000)==0) {
+    long r = Radar_ping();
+    CommandInterpreter_log ("Radar", (int)r);
+  }
+  _rdrctr++;
 }
 
 long Radar_ping() {
@@ -14,7 +23,7 @@ long Radar_ping() {
   delayMicroseconds(10);
   digitalWrite(RADAR_PINGPIN, LOW);
   // wait for pulse
-  long duration = pulseIn(RADAR_PONGPIN, HIGH);
+  long duration = pulseIn(RADAR_PONGPIN, HIGH, 2000000/340);
   long distance = (duration/2) / 29.1;
   return distance;
 }

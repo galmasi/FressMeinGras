@@ -1,3 +1,7 @@
+/* this prevents compile errors - an arduino bug */
+char foo;
+
+#include <SoftwareSerial.h>
 
 /* *********************************************** */
 /*      GLOBAL PIN ASSIGNMENTS                     */
@@ -18,9 +22,9 @@
 /*     subsystem definitions                       */
 /* *********************************************** */
 
+#include "CommandInterpreter.h"
 #include "MotorControl.h"
 #include "Radar.h"
-#include "CommandInterpreter.h"
 #include "CommandExecutor.h"
 
 void setup() {

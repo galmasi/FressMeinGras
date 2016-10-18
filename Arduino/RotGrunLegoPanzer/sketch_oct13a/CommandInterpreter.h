@@ -1,4 +1,3 @@
-#include <SoftwareSerial.h>
 
 byte cmd_mode    = 0;      /* set to 1 when waiting for digits */
 char cmd_command = ' ';    /* the last command we received */
@@ -8,7 +7,7 @@ SoftwareSerial btSerial(BTSERIAL_RX,BTSERIAL_TX);
 
 void CommandInterpreter_init() {
   btSerial.begin(9600);
-  cmd_command = ' ';    
+  cmd_command = ' '; 
 }
 
 /* ************************************************** */
@@ -21,6 +20,16 @@ char CommandInterpreter_command() {
 
 int CommandInterpreter_param() {
   return cmd_param;
+}
+
+void CommandInterpreter_log(String text, int num) {
+  btSerial.print("T ");
+  btSerial.print(text);
+  btSerial.print (" ");
+  btSerial.println(num);
+  Serial.print(text);
+  Serial.print(" ");
+  Serial.println(num);
 }
 
 /* ************************************************** */
