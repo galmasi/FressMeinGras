@@ -20,7 +20,7 @@ inline void CommandExecutor_loop () {
         int n = CommandInterpreter_param();
         int p = abs(n-256);
         bool d = (n>256);
-        //CommandInterpreter_log("LEFT ", p*(d?1:-1));
+        //gCommandInterpreter_log("LEFT ", p*(d?1:-1));
         MotorControl_setLeft (p, d);
         break;
       }
