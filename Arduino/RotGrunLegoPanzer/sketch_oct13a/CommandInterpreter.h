@@ -46,10 +46,14 @@ bool CommandInterpreter_loop() {
   if (cmd_mode == 0) {
     switch (c) {
       // these commands have parameters, we have to wait for the param
-      case 'L':
-      case 'R': {
+      case 'L':  // left track    when track control is selected
+      case 'R':  // right track   when track control is selected
+      case 'T':  // turn degree   when steering is selected
+      case 'V':  // velocity      when steering is selected 
+      {
         cmd_mode          = 1;
         cmd_param         = 0;
+	cmd_param_mult    = 1;
         cmd_command       = c;
         return false;
       }
@@ -70,11 +74,17 @@ bool CommandInterpreter_loop() {
     // newline finalizes the command
     if (c == '\n') {
        cmd_mode = 0;
+       cmd_param = cmd_param * cmd_param_mult;
        return true;
     }
-
+    // check for negative sign
+    if ((c == '-') && (cmd_mode == 1)) {
+	cmd_param_mult = -1;
+	cmd_mode = 2;
+	return false;
+    }
     // accumulating digits for the command parameter
-    else if ('0' <= c && c <= '9') {
+    if ('0' <= c && c <= '9') {
        cmd_param = cmd_param * 10 + ((int)c-(int)'0');
        cmd_mode = 1;
        return false;
