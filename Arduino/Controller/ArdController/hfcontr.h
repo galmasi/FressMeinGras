@@ -1,3 +1,8 @@
+/*********************************************************
+ * Legacy controller from Hubertus .. now depricated
+ * functionality merged with Gheorghe's
+ ********************************************************/
+
 #include <SoftwareSerial.h>
 SoftwareSerial BT(7, 8);
 
