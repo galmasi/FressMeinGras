@@ -2,6 +2,7 @@
 byte cmd_mode    = 0;      /* set to 1 when waiting for digits */
 char cmd_command = ' ';    /* the last command we received */
 int  cmd_param   = 0;      /* parameter received with command */
+int  cmd_param_mult = 1;   /* either 1 or -1 dependent whether a negative number was specified */
 
 SoftwareSerial btSerial(BTSERIAL_RX,BTSERIAL_TX);
 
@@ -23,26 +24,33 @@ int CommandInterpreter_param() {
 }
 
 void CommandInterpreter_log(String text, int num) {
+#if 0
   btSerial.print("T ");
   btSerial.print(text);
   btSerial.print (" ");
   btSerial.println(num);
+#endif
   Serial.print(text);
   Serial.print(" ");
   Serial.println(num);
+
 }
 
 /* ************************************************** */
 /*    check and consume incoming command from BT      */
 /* ************************************************** */
 
-bool CommandInterpreter_loop() {
-  if (!btSerial.available()) return false;
+bool CommandInterpreter_loop()
+{
+  if (!btSerial.available()) {
+      Serial.println("Got nothing");
+      return false;
+  }
 
   char c = btSerial.read();
-  //Serial.print("Got char: ");
-  //Serial.write(c);
-  //Serial.println("");
+  Serial.print("Got char: ");
+  Serial.write(c);
+  Serial.println("");
   if (cmd_mode == 0) {
     switch (c) {
       // these commands have parameters, we have to wait for the param

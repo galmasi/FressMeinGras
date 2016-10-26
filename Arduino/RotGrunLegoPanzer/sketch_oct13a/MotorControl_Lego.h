@@ -1,7 +1,15 @@
+/************************************************************
+ * This modules controls the L298N dual channel controller
+ ************************************************************/
 
 /* ******************* */
 /* motor control state */
 /* ******************* */
+
+#define MOTORCONTROL_PWMAPIN 3
+#define MOTORCONTROL_DIRAPIN 2
+#define MOTORCONTROL_PWMBPIN 9
+#define MOTORCONTROL_DIRBPIN 8
 
 byte mc_leftPower  = 0;
 bool mc_leftDir    = true;
@@ -26,35 +34,44 @@ inline void MotorControl_init() {
 /* else write state values.                        */
 /* *********************************************** */
 
-void MotorControl_loop() {
-   if (mc_stopped) {
-     analogWrite(MOTORCONTROL_PWMAPIN, 0);
-     analogWrite(MOTORCONTROL_PWMBPIN, 0);
-   }
-   else
-   {
-     analogWrite(MOTORCONTROL_PWMAPIN, mc_leftPower);
-     digitalWrite(MOTORCONTROL_DIRAPIN, mc_leftDir);
-     analogWrite(MOTORCONTROL_PWMBPIN, mc_rightPower);
-     digitalWrite(MOTORCONTROL_DIRBPIN, mc_rightDir);
-   }  
+
+inline void MotorControl_left (motorval_t speed)
+{
+  mc_leftPower = abs(speed-256);
+  mc_leftDir = (speed>256);
+  analogWrite(MOTORCONTROL_PWMAPIN, mc_leftPower);
+  digitalWrite(MOTORCONTROL_DIRAPIN, mc_leftDir);
 }
 
-inline void MotorControl_start () {
+inline void MotorControl_right (motorval_t speed)
+{
+  mc_rightPower = abs(speed-256);
+  mc_rightDir = (speed>256);
+  analogWrite(MOTORCONTROL_PWMBPIN, mc_rightPower);
+  digitalWrite(MOTORCONTROL_DIRBPIN, mc_rightDir);
+}
+
+inline void MotorControl_start (void) 
+{
   mc_stopped = false;
+  analogWrite(MOTORCONTROL_PWMAPIN, 0);
+  analogWrite(MOTORCONTROL_PWMBPIN, 0);
 }
 
-inline void MotorControl_stop () {
+inline void MotorControl_stop (void) 
+{
   mc_stopped = true;
+  MotorControl_left(0);
+  MotorControl_right(0);
 }
 
-inline void MotorControl_setLeft (byte n, bool dir) {
-  mc_leftPower = n;
-  mc_leftDir = dir;
+inline void MotorControl_velocity(motorval_t speed)
+{
+  // please complete see L298N
 }
 
-inline void MotorControl_setRight (byte n, bool dir) {
-  mc_rightPower = n;
-  mc_rightDir = dir;
+inline void MotorControl_turn(motorval_t speed)
+{
+  // please complete see L298N
 }
 

@@ -1,12 +1,15 @@
+/************************************************************
+ * This modules controls the L298N dual channel controller
+ ************************************************************/
 
 /* ******************* */
 /* motor control state */
 /* ******************* */
 
-bool mc_stopped  = true;
-char mc_leftM    = 0;
-char mc_rightM   = 0;
-char globalTurn  = 0;
+bool mc_stopped = false;
+char mc_left    = 0;
+char mc_right   = 0;
+char mc_turn    = 0;
 
 //char mc_gear   = 10;
 
@@ -16,8 +19,8 @@ char globalTurn  = 0;
 #define L298N_AF (2)   // forward
 #define L298N_AB (3)   // backward
 #define L298N_AE (5)   // PWM
-#define L298N_BF (9)   // forward
-#define L298N_BB (10)  // backward
+#define L298N_BF (4)   // forward
+#define L298N_BB (7)   // backward
 #define L298N_BE (6)   // PWM
 
 /* *********************************************** */
@@ -37,7 +40,8 @@ inline void L298N_stop()
 }
 
 
-inline void MotorControl_init() {
+inline void MotorControl_init() 
+{
   // enable the modes of the L298N
   pinMode(L298N_AF, OUTPUT);
   pinMode(L298N_AB, OUTPUT);
@@ -81,90 +85,84 @@ char speed_to_pwm[128] = {
 /* else write state values.                        */
 /* *********************************************** */
 
-void MotorControl_loop() {
-   if (mc_stopped) {
-	L298N_stop();
-   }
-   else
-   {
-     analogWrite(MOTORCONTROL_PWMAPIN, mc_leftPower);
-     digitalWrite(MOTORCONTROL_DIRAPIN, mc_leftDir);
-     analogWrite(MOTORCONTROL_PWMBPIN, mc_rightPower);
-     digitalWrite(MOTORCONTROL_DIRBPIN, mc_rightDir);
-   }  
-}
-
-inline void MotorControl_start () {
+inline void MotorControl_start(void) {
   mc_stopped = false;
+  // since it was stopped all values should be
+  // still set to idle
 }
 
-inline void MotorControl_stop () {
+inline void MotorControl_stop(void) {
   mc_stopped = true;
+  L298N_stop();
 }
 
-inline void MotorControl_setLeft (byte n, bool dir) {
-  static char newleftM;
-  char setval;
-  
-  newleftM = scaleM(speed);
-  if ((newleftM == 0) && (leftM == 0)) {
+inline void MotorControl_left(motorval_t speed) 
+{
+  motorval_t mc_left_new, setval;
+ 
+  if (mc_stopped) return; 
+
+  mc_left_new = scaleM(speed);
+  if ((mc_left_new == 0) && (mc_left == 0)) {
     digitalWrite(L298N_BB, LOW);
     digitalWrite(L298N_BF, LOW);
-  }
-  if ((newleftM >= 0) && (leftM <= 0)) {
+  } else
+  if ((mc_left_new >= 0) && (mc_left <= 0)) {
     digitalWrite(L298N_BB, LOW);
     digitalWrite(L298N_BF, HIGH);
-  }
-  if ((newleftM <= 0) && (leftM >= 0)) {
+  } else
+  if ((mc_left_new <= 0) && (mc_left >= 0)) {
     digitalWrite(L298N_BF, LOW);
     digitalWrite(L298N_BB, HIGH);
   }
-  setval = abs(newleftM);
+  setval = abs(mc_left_new);
   analogWrite(L298N_BE, speed_to_pwm[setval]);
-  leftM = newleftM;
+  mc_left = mc_left_new;
 }
 
-inline void MotorControl_setRight (byte n, bool dir) {
-  static char newrightM;
-  char setval;
+inline void MotorControl_right(motorval_t speed) 
+{
+  motorval_t mc_right_new, setval;
   
-  newrightM = scaleM(speed);
-  if ((newrightM==0) || (rightM == 0)) {
+  if (mc_stopped) return; 
+
+  mc_right_new = scaleM(speed);
+  if ((mc_right_new==0) || (mc_right == 0)) {
     digitalWrite(L298N_AB, LOW);
     digitalWrite(L298N_AF, LOW); 
   }
-  if ((newrightM >= 0) && (rightM <= 0)) {
+  if ((mc_right_new >= 0) && (mc_right <= 0)) {
     digitalWrite(L298N_AB, LOW);
     digitalWrite(L298N_AF, HIGH);
   }
-  if ((newrightM <= 0) && (rightM >= 0)) {
+  if ((mc_right_new <= 0) && (mc_right >= 0)) {
     digitalWrite(L298N_AF, LOW);
     digitalWrite(L298N_AB, HIGH);
   }
-  setval = abs(newrightM);
+  setval = abs(mc_right_new);
   analogWrite(L298N_AE, speed_to_pwm[setval]);
-  rightM = newrightM;
+  mc_right = mc_right_new;
 }
 
-void MotorControl_setTurn(char turn)
+void MotorControl_turn(motorval_t turn)
 {
-  globalTurn = turn;  
+  mc_turn = turn;  
 }
 
-#define turnscaleL(s) ((char) ((int)(s)*(128+(globalTurn))/(int)128))
-#define turnscaleR(s) ((char) ((int)(s)*(128-(globalTurn))/(int)128))
+#define turnscaleL(s) ((char) ((int)(s)*(128+(mc_turn))/(int)128))
+#define turnscaleR(s) ((char) ((int)(s)*(128-(mc_turn))/(int)128))
 
-void MotorControl_setVelocity(char speed)
+void MotorControl_velocity(motorval_t speed)
 {
-  char lspeed, rspeed;
+  motorval_t lspeed, rspeed;
   lspeed = rspeed = speed;
   if (speed) {
-      if (globalTurn < 0)
+      if (mc_turn < 0)
          lspeed = turnscaleL(speed);
       else {
          rspeed = turnscaleR(speed);
       }
   }
-  setLeftSpeed(lspeed);
-  setRightSpeed(rspeed);
+  MotorControl_left(lspeed);
+  MotorControl_right(rspeed);
 }
