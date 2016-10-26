@@ -1,11 +1,13 @@
-void Radar_init() {
+void Radar_init(void)
+{
   pinMode(RADAR_PINGPIN, OUTPUT);
   pinMode(RADAR_PONGPIN, INPUT);
 }
 
-long Radar_ping();
+long Radar_ping(void);
 
 // every 15000 counts, run a radar loop
+
 long _rdrctr = 0;
 void Radar_loop() {
   if ((_rdrctr%15000)==0) {
@@ -15,7 +17,8 @@ void Radar_loop() {
   _rdrctr++;
 }
 
-long Radar_ping() {
+long Radar_ping(void)
+{
   // send pulse
   digitalWrite(RADAR_PINGPIN, LOW);
   delayMicroseconds(2);
