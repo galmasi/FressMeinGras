@@ -21,7 +21,7 @@ Sabertooth ST(128);    // connect the S1 line to the TX of UNO
 /* motor control state */
 /* ******************* */
 
-bool mc_stopped = false;
+bool mc_stopped = true;
 motorval_t mc_turn    = 0;
 
 /* *********************************************** */
@@ -31,7 +31,7 @@ motorval_t mc_turn    = 0;
 
 inline void MotorControl_init(void) 
 {
-  mc_stopped = false;
+  mc_stopped = true;
 
   SabertoothTXPinSerial.begin(9600);
 

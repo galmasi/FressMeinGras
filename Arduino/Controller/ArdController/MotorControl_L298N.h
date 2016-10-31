@@ -53,7 +53,7 @@ inline void MotorControl_init(void)
   pinMode(L298N_BE, OUTPUT);
 
   L298N_stop();
-  mc_stopped = false;
+  mc_stopped = true;
 }
 
 /* *********************************************** */
