@@ -7,6 +7,8 @@ void CommandExecutor_init()
 
 void CheckHeartBeat()
 {
+  // we expect a heartbeat to be send every 750msec
+  // the 1000msec check provides some slack
   if (millis() > (lastHeartBeat + 1000)) {
     // we lost communication with RC
     MotorControl_stop();
@@ -74,7 +76,7 @@ inline void CommandExecutor_exec ()
     }
   case 'H':  // HEARTBEAT 
     {
-      // we send the heartbeat every second in case no commands are coming
+      // we send the heartbeat every 750msec in case no commands are coming
       // from the controller.
       // Any command should be taken as a heartbeat, so move the hearbeat
       // outside this case statement
