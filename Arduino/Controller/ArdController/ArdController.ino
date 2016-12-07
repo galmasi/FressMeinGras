@@ -30,34 +30,36 @@ char foo;
 
 typedef signed char motorval_t;  
 
+#include "CommandInterpreter.h"
+
 //#include "MotorControl_L298N.h"
 #include <Sabertooth.h>
 #include "MotorControl_Sabertooth.h"
 //#include "MotorControl_Lego.h"
 
-#include "CommandInterpreter.h"
-#include "Radar.h"
+//#include "Radar.h"
 #include "CommandExecutor.h"
 
 void setup()
 {
   Serial.begin(9600);    
-  Serial.println("FressMeinGrass starting");
+//  Serial.println("FressMeinGrass starting");
   MotorControl_init();
-  Radar_init();
+//  Radar_init();
   CommandInterpreter_init();
-  Serial.println("FressMeinGrass Ready");
+//  Serial.println("FressMeinGrass Ready");
   CommandExecutor_init();
 }
 
 void loop()
 {
 //  Radar_loop();
+
   
   if (CommandInterpreter_loop())
     CommandExecutor_exec();
-  else 
-    CheckHeartBeat();
+//  else 
+//    CheckHeartBeat();
 }
 
 

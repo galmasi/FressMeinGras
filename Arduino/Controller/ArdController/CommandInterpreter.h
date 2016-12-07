@@ -27,16 +27,14 @@ int CommandInterpreter_param(void)
 
 void CommandInterpreter_log(String text, int num)
 {
-#if 0
-  btSerial.print("T ");
-  btSerial.print(text);
-  btSerial.print (" ");
-  btSerial.println(num);
-#endif
-  Serial.print(text);
-  Serial.print(" ");
-  Serial.println(num);
-
+  // commented out all logging facilities because they interfere
+  // with communication.
+  // left the function because we probably will need
+  // debugging again in the future.
+  
+  //Serial.print(text);
+  //Serial.print (" ");
+  //Serial.println(num);
 }
 
 /* ************************************************** */
@@ -52,12 +50,6 @@ bool CommandInterpreter_loop()
   }
 
   char c = btSerial.read();
-
-  //  Serial.print("Got char: ");
-  //  Serial.write(c);
-  //  Serial.print(" ");
-  //  Serial.print(cmd_mode);
-  //  Serial.println("");
 
   if (cmd_mode == 0) {
     switch (c) {

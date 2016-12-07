@@ -21,11 +21,6 @@ inline void CommandExecutor_exec ()
   char c = CommandInterpreter_command();
   int n;
 
-  //  Serial.print("execute command: ");
-  //  Serial.write(c);
-  //  Serial.print(" ");
-  //  Serial.print(CommandInterpreter_param());
-  //  Serial.println("");
   switch (c) {
   case 'G':   // GO
     {
@@ -42,34 +37,34 @@ inline void CommandExecutor_exec ()
   case 'L':   // TANK LEFT  TRACK -127 .. +127   
     {
       n = CommandInterpreter_param();
-      //gCommandInterpreter_log("LEFT ", n);
+      CommandInterpreter_log("LEFT ", n);
       MotorControl_left (n);
       break;
     }
   case 'R': // TANK RIGHT TRACK -127 .. +127   
     {
       n = CommandInterpreter_param();
-      //CommandInterpreter_log("RIGHT ", n);
+      CommandInterpreter_log("RIGHT ", n);
       MotorControl_right (n);
       break;
     }
   case 'V': // VELOCITY -127..+127
     {
       n = CommandInterpreter_param();
-      //gCommandInterpreter_log("VEL ", n);
+      CommandInterpreter_log("VEL ", n);
       MotorControl_velocity(n);
       break;
     }
   case 'T':  // TURN -127..+127
     {
       n = CommandInterpreter_param();
-      //gCommandInterpreter_log("TURN", n);
+      CommandInterpreter_log("TURN", n);
       MotorControl_turn(n);
       break;
     }
   case 'P':  // PING RADAR  
     {
-      long distance = Radar_ping();
+      long distance = 0; // Radar_ping();
       Serial.print("PING ");
       Serial.println(distance);
       break;

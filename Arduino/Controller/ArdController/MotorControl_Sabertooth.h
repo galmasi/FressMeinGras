@@ -87,7 +87,7 @@ inline void MotorControl_stop(void)
 inline void MotorControl_left(motorval_t speed) 
 {
   if (mc_stopped) return; 
-
+  CommandInterpreter_log("Sabertoothleft", speed);
   ST.motor(ST_MOTOR_LEFT, scaleM(speed));
 }
 
@@ -95,6 +95,7 @@ inline void MotorControl_right(motorval_t speed)
 {
   if (mc_stopped) return; 
 
+  CommandInterpreter_log("Sabertoothright", speed);
   ST.motor(ST_MOTOR_RIGHT, scaleM(speed));
 }
 
@@ -152,3 +153,4 @@ void MotorControl_velocity(motorval_t speed)
 }
 
 #endif
+
