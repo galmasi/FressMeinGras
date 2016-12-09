@@ -4,7 +4,11 @@ void Radar_init(void)
   pinMode(RADAR_PONGPIN, INPUT);
 }
 
-long Radar_ping(void);
+void Radar_loop(void)
+{
+}
+
+#if 0
 
 // every 15000 counts, run a radar loop
 
@@ -31,3 +35,4 @@ long Radar_ping(void)
   return distance;
 }
 
+#endif

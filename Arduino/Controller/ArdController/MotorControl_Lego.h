@@ -6,14 +6,10 @@
 /* motor control state */
 /* ******************* */
 
-#define MOTORCONTROL_PWMAPIN 3
-#define MOTORCONTROL_DIRAPIN 2
-#define MOTORCONTROL_PWMBPIN 9
-#define MOTORCONTROL_DIRBPIN 8
 
-byte mc_leftPower  = 0;
+int  mc_leftPower  = 0;
 bool mc_leftDir    = true;
-byte mc_rightPower = 0;
+int  mc_rightPower = 0;
 bool mc_rightDir   = true;
 bool mc_stopped    = true;
 
@@ -22,10 +18,10 @@ bool mc_stopped    = true;
 /* *********************************************** */
 
 inline void MotorControl_init() {
-  pinMode(MOTORCONTROL_PWMAPIN, OUTPUT);
-  pinMode(MOTORCONTROL_PWMBPIN, OUTPUT);
-  pinMode(MOTORCONTROL_DIRAPIN, OUTPUT);
-  pinMode(MOTORCONTROL_DIRBPIN, OUTPUT);
+  pinMode(LEGOMOTOR_PWMAPIN, OUTPUT);
+  pinMode(LEGOMOTOR_PWMBPIN, OUTPUT);
+  pinMode(LEGOMOTOR_DIRAPIN, OUTPUT);
+  pinMode(LEGOMOTOR_DIRBPIN, OUTPUT);
   mc_stopped = 1;
 }
 
@@ -37,25 +33,25 @@ inline void MotorControl_init() {
 
 inline void MotorControl_left (motorval_t speed)
 {
-  mc_leftPower = abs(speed-256);
-  mc_leftDir = (speed>256);
-  analogWrite(MOTORCONTROL_PWMAPIN, mc_leftPower);
-  digitalWrite(MOTORCONTROL_DIRAPIN, mc_leftDir);
+  mc_leftPower = 2*abs(speed);
+  mc_leftDir = (speed>0);
+  analogWrite(LEGOMOTOR_PWMAPIN, mc_leftPower);
+  digitalWrite(LEGOMOTOR_DIRAPIN, mc_leftDir);
 }
 
 inline void MotorControl_right (motorval_t speed)
 {
-  mc_rightPower = abs(speed-256);
-  mc_rightDir = (speed>256);
-  analogWrite(MOTORCONTROL_PWMBPIN, mc_rightPower);
-  digitalWrite(MOTORCONTROL_DIRBPIN, mc_rightDir);
+  mc_rightPower = 2*abs(speed);
+  mc_rightDir = (speed>0);
+  analogWrite(LEGOMOTOR_PWMBPIN, mc_rightPower);
+  digitalWrite(LEGOMOTOR_DIRBPIN, mc_rightDir);
 }
 
 inline void MotorControl_start (void) 
 {
   mc_stopped = false;
-  analogWrite(MOTORCONTROL_PWMAPIN, 0);
-  analogWrite(MOTORCONTROL_PWMBPIN, 0);
+  analogWrite(LEGOMOTOR_PWMAPIN, 0);
+  analogWrite(LEGOMOTOR_PWMBPIN, 0);
 }
 
 inline void MotorControl_stop (void) 

@@ -1,3 +1,5 @@
+#include <Sabertooth.h>
+
 /************************************************************
  * This modules controls the Sabertooth 2x32 controller
  * The Sabertooth is to be setup in Serial Mode:

@@ -17,12 +17,6 @@ motorval_t mc_turn    = 0;
 // each motor requires 3 pins
 // forward,backward and pwm supplied voltage
 
-#define L298N_AF (4)   // forward
-#define L298N_AB (7)   // backward
-#define L298N_AE (6)   // PWM
-#define L298N_BF (2)   // forward
-#define L298N_BB (3)   // backward
-#define L298N_BE (5)   // PWM
 
 
 /* *********************************************** */
