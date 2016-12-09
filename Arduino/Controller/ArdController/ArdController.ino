@@ -54,8 +54,8 @@ typedef signed char motorval_t;
 /* 1B) LED TBD                                     */
 /* *********************************************** */
 
-//#include "NoopLogger.h"
-#include "SerialLogger.h"
+#include "NoopLogger.h"
+//#include "SerialLogger.h"
 #include "LedLogger.h"
 
 /* *********************************************** */
@@ -66,8 +66,8 @@ typedef signed char motorval_t;
 /* *********************************************** */
 
 //#include "MotorControl_L298N.h"
-//#include "MotorControl_Sabertooth.h"
-#include "MotorControl_Lego.h"
+#include "MotorControl_Sabertooth.h"
+//#include "MotorControl_Lego.h"
 #include "Radar.h"
 
 /* *********************************************** */
