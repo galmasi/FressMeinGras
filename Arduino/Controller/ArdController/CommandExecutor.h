@@ -66,6 +66,7 @@ inline void CommandExecutor_Go ()
   _ce_bwLimit = 127;
   _ce_speed = 0;
   Logger_log ("GO", 0);
+  LedLogger_set(0,1,0);
 }
 
 inline void CommandExecutor_Stop ()
@@ -75,6 +76,7 @@ inline void CommandExecutor_Stop ()
   _ce_bwLimit = 0;
   _ce_speed = 0;
   Logger_log("STOP",0);
+  LedLogger_set(1,0,0);
 }
 
 // direction: 
@@ -91,6 +93,7 @@ void CommandExecutor_Slow(signed char dir)
   if (dir < 0) _ce_bwLimit = 0;
   _ce_speed = 0;
   Logger_log("SLOW",dir);
+  LedLogger_set(1,1,0);
 }
 
 inline void CommandExecutor_Left(motorval_t n)

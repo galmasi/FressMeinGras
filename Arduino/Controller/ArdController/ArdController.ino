@@ -21,6 +21,11 @@ char foo;
 // we are overloading the radar pins. NEEDS FIXED
 #define BUMPER_PIN 10
 
+// these overlap with the L298
+#define LEDRED_PIN 4
+#define LEDGRN_PIN 5
+#define LEDBLU_PIN 6
+
 #define LEGOMOTOR_PWMAPIN 3
 #define LEGOMOTOR_DIRAPIN 2
 #define LEGOMOTOR_PWMBPIN 9
@@ -51,6 +56,7 @@ typedef signed char motorval_t;
 
 //#include "NoopLogger.h"
 #include "SerialLogger.h"
+#include "LedLogger.h"
 
 /* *********************************************** */
 /*  2)  drivers for motors and sensors             */
@@ -88,6 +94,7 @@ typedef signed char motorval_t;
 void setup()
 {
   Logger_init();
+  LedLogger_init();
   MotorControl_init();
   Radar_init();
   CommandExecutor_init();
