@@ -111,8 +111,8 @@ inline void CommandExecutor_Right(motorval_t n)
 inline void CommandExecutor_Turn(motorval_t n)
 {
   _ce_turn = n;
-  motorval_t l = CommandExecutor_limit(CommandExecutor_p2r(-_ce_turn, _ce_speed));
-  motorval_t r = CommandExecutor_limit(CommandExecutor_p2r(_ce_turn, _ce_speed));
+  motorval_t r = CommandExecutor_limit(CommandExecutor_p2r(-_ce_turn, _ce_speed));
+  motorval_t l = CommandExecutor_limit(CommandExecutor_p2r(_ce_turn, _ce_speed));
   MotorControl_left (l);
   MotorControl_right(r);
   Logger_log("Turn", _ce_turn);
@@ -124,8 +124,8 @@ inline void CommandExecutor_Turn(motorval_t n)
 inline void CommandExecutor_Velocity(motorval_t n)
 {
   _ce_speed = n;
-  motorval_t l = CommandExecutor_limit(CommandExecutor_p2r(-_ce_turn, _ce_speed));
-  motorval_t r = CommandExecutor_limit(CommandExecutor_p2r(_ce_turn, _ce_speed));
+  motorval_t r = CommandExecutor_limit(CommandExecutor_p2r(-_ce_turn, _ce_speed));
+  motorval_t l = CommandExecutor_limit(CommandExecutor_p2r(_ce_turn, _ce_speed));
   MotorControl_left (l);
   MotorControl_right(r);
   Logger_log("Turn", _ce_turn);
