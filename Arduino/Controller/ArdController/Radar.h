@@ -1,7 +1,7 @@
 void Radar_init(void)
 {
-  pinMode(RADAR_PINGPIN, OUTPUT);
-  pinMode(RADAR_PONGPIN, INPUT);
+  //pinMode(RADAR_PINGPIN, OUTPUT);
+  //pinMode(RADAR_PONGPIN, INPUT);
 }
 
 void Radar_loop(void)

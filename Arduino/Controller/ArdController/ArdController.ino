@@ -4,6 +4,8 @@
 char foo;
 
 #include <SoftwareSerial.h>
+#include <Sabertooth.h>
+
 
 /* *************************************************************** */
 /* GLOBAL PIN ASSIGNMENTS for all functional units                 */
@@ -15,6 +17,9 @@ char foo;
 
 #define RADAR_PINGPIN 10
 #define RADAR_PONGPIN 11
+
+// we are overloading the radar pins. NEEDS FIXED
+#define BUMPER_PIN 10
 
 #define LEGOMOTOR_PWMAPIN 3
 #define LEGOMOTOR_DIRAPIN 2
@@ -52,14 +57,12 @@ typedef signed char motorval_t;
 /* ----------------------------------------------- */
 /* 2A) physical motor control (lego, L298N or ST)  */
 /* 2B) radar                                       */ 
-/* 2C) bumper pin driver                           */ 
 /* *********************************************** */
 
 //#include "MotorControl_L298N.h"
 //#include "MotorControl_Sabertooth.h"
 #include "MotorControl_Lego.h"
 #include "Radar.h"
-#include "Bumper.h"
 
 /* *********************************************** */
 /* 3) Command Executor                             */
@@ -75,9 +78,12 @@ typedef signed char motorval_t;
 /* ----------------------------------------------- */
 /* 4A) Bluetooth Interpreter                       */
 /* 4B) Raspi interpreter TBD                       */
+/* 4C) bumper pin driver                           */ 
 /* *********************************************** */
 
 #include "BluetoothInterpreter.h"
+//
+#include "Bumper.h"
 
 void setup()
 {
@@ -93,6 +99,7 @@ void loop()
 {
   BluetoothInterpreter_loop();
   Radar_loop();
+  Bumper_loop();
   CommandExecutor_loop();
 }
 

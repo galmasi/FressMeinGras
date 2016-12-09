@@ -1,4 +1,3 @@
-#include <Sabertooth.h>
 
 /************************************************************
  * This modules controls the Sabertooth 2x32 controller
@@ -89,7 +88,7 @@ inline void MotorControl_stop(void)
 inline void MotorControl_left(motorval_t speed) 
 {
   if (mc_stopped) return; 
-  CommandInterpreter_log("Sabertoothleft", speed);
+  Logger_log("Sabertoothleft", speed);
   ST.motor(ST_MOTOR_LEFT, scaleM(speed));
 }
 
@@ -97,7 +96,7 @@ inline void MotorControl_right(motorval_t speed)
 {
   if (mc_stopped) return; 
 
-  CommandInterpreter_log("Sabertoothright", speed);
+  Logger_log("Sabertoothright", speed);
   ST.motor(ST_MOTOR_RIGHT, scaleM(speed));
 }
 

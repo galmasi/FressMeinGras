@@ -64,6 +64,7 @@ inline void CommandExecutor_Go ()
   MotorControl_start();
   _ce_fwLimit = 127;
   _ce_bwLimit = 127;
+  _ce_speed = 0;
   Logger_log ("GO", 0);
 }
 
@@ -72,7 +73,24 @@ inline void CommandExecutor_Stop ()
   MotorControl_stop();
   _ce_fwLimit = 0;
   _ce_bwLimit = 0;
+  _ce_speed = 0;
   Logger_log("STOP",0);
+}
+
+// direction: 
+// 1 = STOP fwd, SLOW bwd
+// -1 = STOP bwd, SLOW fwd
+// 0 = SLOW in both directions
+
+void CommandExecutor_Slow(signed char dir)
+{
+  MotorControl_stop();
+  _ce_fwLimit = 15;
+  _ce_bwLimit = 15;
+  if (dir > 0) _ce_fwLimit = 0;
+  if (dir < 0) _ce_bwLimit = 0;
+  _ce_speed = 0;
+  Logger_log("SLOW",dir);
 }
 
 inline void CommandExecutor_Left(motorval_t n)
