@@ -8,7 +8,7 @@ void LedLogger_init() {
 }
     
 void LedLogger_set(int red, int green, int blue) {
-   digitalWrite(LEDRED_PIN, red==0);  
-   digitalWrite(LEDGRN_PIN, green=0);  
-   digitalWrite(LEDBLU_PIN, blue==0);  
+   digitalWrite(LEDRED_PIN, red==0?1:0);  
+   digitalWrite(LEDGRN_PIN, green=0?1:0);  
+   digitalWrite(LEDBLU_PIN, blue==0?1:0);  
 }

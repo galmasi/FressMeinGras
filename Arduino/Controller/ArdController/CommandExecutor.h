@@ -1,4 +1,9 @@
 /* ******************************************************** */
+/*    HOW SLOW IS SLOW?                                     */
+/* ******************************************************** */
+#define SLOW_LIMIT 48
+
+/* ******************************************************** */
 /* *    command executor state                            * */
 /* ******************************************************** */
 
@@ -7,8 +12,6 @@ motorval_t          _ce_fwLimit;        /* forward speed limit */
 motorval_t          _ce_bwLimit;        /* backward speed limit */
 motorval_t          _ce_turn;           /* last turn value */
 motorval_t          _ce_speed;          /* last speed value */
-
-motorval_t state; /* !!!!! */
 
 
 /* ******************************************************** */
@@ -22,6 +25,7 @@ inline void CommandExecutor_init()
   _ce_bwLimit = 0;
   _ce_turn = 0;
   _ce_speed = 0;
+  LedLogger_set(1,0,0); // red (not ready to move)
 }
 
 /* ******************************************************** */
@@ -66,7 +70,7 @@ inline void CommandExecutor_Go ()
   _ce_bwLimit = 127;
   _ce_speed = 0;
   Logger_log ("GO", 0);
-  LedLogger_set(0,1,0);
+  LedLogger_set(0,1,0); // green (ready to move)
 }
 
 inline void CommandExecutor_Stop ()
@@ -76,7 +80,7 @@ inline void CommandExecutor_Stop ()
   _ce_bwLimit = 0;
   _ce_speed = 0;
   Logger_log("STOP",0);
-  LedLogger_set(1,0,0);
+  LedLogger_set(1,0,0); // red (not ready to move)
 }
 
 // direction: 
@@ -86,14 +90,13 @@ inline void CommandExecutor_Stop ()
 
 void CommandExecutor_Slow(signed char dir)
 {
-  MotorControl_stop();
-  _ce_fwLimit = 15;
-  _ce_bwLimit = 15;
+  _ce_fwLimit = SLOW_LIMIT;
+  _ce_bwLimit = SLOW_LIMIT;
   if (dir > 0) _ce_fwLimit = 0;
   if (dir < 0) _ce_bwLimit = 0;
   _ce_speed = 0;
   Logger_log("SLOW",dir);
-  LedLogger_set(1,1,0);
+  LedLogger_set(1,1,0); // orange/yellow
 }
 
 inline void CommandExecutor_Left(motorval_t n)
@@ -118,7 +121,7 @@ inline void CommandExecutor_Turn(motorval_t n)
   Logger_log("Turn", _ce_turn);
   Logger_log("Vel", _ce_speed);
   Logger_log("LEFT", l);
-  Logger_log("RIGHT", r);  
+  Logger_log("RIGHT", r);
 }
 
 inline void CommandExecutor_Velocity(motorval_t n)

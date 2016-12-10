@@ -19,12 +19,13 @@ char foo;
 #define RADAR_PONGPIN 11
 
 // we are overloading the radar pins. NEEDS FIXED
-#define BUMPER_PIN 10
+#define BUMPER_PIN_0 A0
+#define BUMPER_PIN_1 A1
 
 // these overlap with the L298
-#define LEDRED_PIN 4
+#define LEDRED_PIN 6
 #define LEDGRN_PIN 5
-#define LEDBLU_PIN 6
+#define LEDBLU_PIN 4
 
 #define LEGOMOTOR_PWMAPIN 3
 #define LEGOMOTOR_DIRAPIN 2
