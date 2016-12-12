@@ -28,24 +28,6 @@ inline void CommandExecutor_init()
   LedLogger_set(1,0,0); // red (not ready to move)
 }
 
-/* ******************************************************** */
-/*          update LEDs, check heartbeat etc.               */
-/* ******************************************************** */
-inline void CommandExecutor_loop()
-{
-  #if 0
-  // we expect a heartbeat to be send every 750msec
-  // the 1000msec check provides some slack
-  if (millis() > (_ce_lastHeartBeat + 1000)) {
-    // we lost communication with RC
-    MotorControl_stop();
-    _ce_fwLimit = 0;
-    _ce_bwLimit = 0;
-    Logger_log("Heartbeat lost", 0);
-  }
-  #endif
-}
-
 inline motorval_t CommandExecutor_limit (motorval_t n)
 {
   if (n>_ce_fwLimit) return _ce_fwLimit;
@@ -149,4 +131,18 @@ inline void CommandExecutor_HeartBeat()
   // outside this case statement
   _ce_lastHeartBeat = millis();
 }
+
+/* ******************************************************** */
+/*          update LEDs, check heartbeat etc.               */
+/* ******************************************************** */
+inline void CommandExecutor_loop()
+{
+  // we expect a heartbeat to be send every 750msec
+  // the 1000msec check provides some slack
+  if (millis() > (_ce_lastHeartBeat + 1000)) {
+    // we lost communication with RC
+    CommandExecutor_Stop();
+  }
+}
+
 

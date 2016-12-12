@@ -96,6 +96,7 @@ void setup()
 {
   Logger_init();
   LedLogger_init();
+  Bumper_init();
   MotorControl_init();
   Radar_init();
   CommandExecutor_init();
@@ -107,7 +108,7 @@ void loop()
 {
   BluetoothInterpreter_loop();
   Radar_loop();
-  Bumper_loop();
+//  Bumper_loop();
   CommandExecutor_loop();
 }
 

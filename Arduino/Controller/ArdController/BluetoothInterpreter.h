@@ -62,6 +62,11 @@ void BluetoothInterpreter_loop()
         CommandExecutor_Ping();
         return;
       }
+      case 'H':
+      {
+        CommandExecutor_HeartBeat();
+        return;
+      }
       // these commands have parameters, we have to wait for the param
       case 'L':  // left track    when track control is selected
       case 'R':  // right track   when track control is selected
