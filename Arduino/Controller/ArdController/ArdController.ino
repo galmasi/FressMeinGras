@@ -6,23 +6,7 @@ char foo;
 #include <SoftwareSerial.h>
 #include <Sabertooth.h>
 
-/* *************************************************************** */
-/* These defines determine what features we use                    */
-/* *************************************************************** */
-/* HAVE_BUMPERS - define it if you have bumper hardware.           */
-/* MOTOR_LEGO, MOTOR_SABERTOOTH, MOTOR_L298 - define one of these! */
-/* HAVE_SERIALPORT - the serial port is free for logging purposes. */
-/* HAVE_HEARTBEAT - set it if your bluetooth commander is sending it. */
-
-#define HAVE_BUMPERS 1
-
-// #define MOTOR_LEGO 1
-#define MOTOR_SABERTOOTH 1
-// #define MOTOR_L298 1
-
-//#define HAVE_SERIALPORT 1
-
-#define HAVE_HEARTBEAT 1
+#include "Configuration.h"
 
 /* *************************************************************** */
 /* GLOBAL PIN ASSIGNMENTS for all functional units                 */

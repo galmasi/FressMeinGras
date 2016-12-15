@@ -2,7 +2,14 @@
 // for PNP sensors that is usually "1"
 // for NPN sensors it is "0"
 
-#define BUMPER_TRIGGERED 0
+#if defined(BUMPER_NPN)
+  #define BUMPER_TRIGGERED 0
+#elif defined(BUMPER_PNP)
+  #define BUMPER_TRIGGERED 1
+#else
+  #error "Have to define one of BUMPER_NPN or BUMPER_PNP if you define HAVE_BUMPERS"
+#endif
+
 
 byte _bumper_state = 0;
 
