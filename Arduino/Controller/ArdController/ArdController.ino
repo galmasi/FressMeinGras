@@ -6,6 +6,23 @@ char foo;
 #include <SoftwareSerial.h>
 #include <Sabertooth.h>
 
+/* *************************************************************** */
+/* These defines determine what features we use                    */
+/* *************************************************************** */
+/* HAVE_BUMPERS - define it if you have bumper hardware.           */
+/* MOTOR_LEGO, MOTOR_SABERTOOTH, MOTOR_L298 - define one of these! */
+/* HAVE_SERIALPORT - the serial port is free for logging purposes. */
+/* HAVE_HEARTBEAT - set it if your bluetooth commander is sending it. */
+
+#define HAVE_BUMPERS 1
+
+// #define MOTOR_LEGO 1
+#define MOTOR_SABERTOOTH 1
+// #define MOTOR_L298 1
+
+//#define HAVE_SERIALPORT 1
+
+#define HAVE_HEARTBEAT 1
 
 /* *************************************************************** */
 /* GLOBAL PIN ASSIGNMENTS for all functional units                 */
@@ -18,7 +35,6 @@ char foo;
 #define RADAR_PINGPIN 10
 #define RADAR_PONGPIN 11
 
-// we are overloading the radar pins. NEEDS FIXED
 #define BUMPER_PIN_0 A0
 #define BUMPER_PIN_1 A1
 
@@ -52,11 +68,15 @@ typedef signed char motorval_t;
 
 /* *********************************************** */
 /* 1A) Logging  (one of noop or serial)            */
-/* 1B) LED TBD                                     */
+/* 1B) Led status announcer                        */
 /* *********************************************** */
 
+#ifdef HAVE_SERIALPORT
+#include "SerialLogger.h"
+#else
 #include "NoopLogger.h"
-//#include "SerialLogger.h"
+#endif
+
 #include "LedLogger.h"
 
 /* *********************************************** */
@@ -66,9 +86,18 @@ typedef signed char motorval_t;
 /* 2B) radar                                       */ 
 /* *********************************************** */
 
-//#include "MotorControl_L298N.h"
-#include "MotorControl_Sabertooth.h"
-//#include "MotorControl_Lego.h"
+#ifdef MOTOR_L298
+  #include "MotorControl_L298N.h"
+#else
+  #ifdef MOTOR_SABERTOOTH
+    #include "MotorControl_Sabertooth.h"
+  #else
+    #ifdef MOTOR_LEGO
+       #include "MotorControl_Lego.h"
+    #endif
+  #endif
+#endif
+
 #include "Radar.h"
 
 /* *********************************************** */
@@ -89,14 +118,20 @@ typedef signed char motorval_t;
 /* *********************************************** */
 
 #include "BluetoothInterpreter.h"
-//
-#include "Bumper.h"
+
+#ifdef HAVE_BUMPERS
+  #include "Bumper.h"
+#endif
 
 void setup()
 {
   Logger_init();
   LedLogger_init();
+
+#ifdef HAVE_BUMPERS
   Bumper_init();
+#endif
+
   MotorControl_init();
   Radar_init();
   CommandExecutor_init();
@@ -108,7 +143,9 @@ void loop()
 {
   BluetoothInterpreter_loop();
   Radar_loop();
-//  Bumper_loop();
+#ifdef HAVE_BUMPERS
+  Bumper_loop();
+#endif
   CommandExecutor_loop();
 }
 

@@ -139,10 +139,13 @@ inline void CommandExecutor_loop()
 {
   // we expect a heartbeat to be send every 750msec
   // the 1000msec check provides some slack
+#ifdef HAVE_HEARTBEAT
   if (millis() > (_ce_lastHeartBeat + 1000)) {
     // we lost communication with RC
+    Logger_log("No heartbeat", 0);
     CommandExecutor_Stop();
   }
+#endif
 }
 
 
