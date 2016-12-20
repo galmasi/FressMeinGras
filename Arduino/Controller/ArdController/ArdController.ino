@@ -19,6 +19,9 @@ char foo;
 #define RADAR_PINGPIN 10
 #define RADAR_PONGPIN 11
 
+#define CSERIAL_TX 10
+#define CSERIAL_RX 11
+
 #define BUMPER_PIN_0 A0
 #define BUMPER_PIN_1 A1
 
@@ -96,12 +99,11 @@ typedef signed char motorval_t;
 /* 4) Interpreters only talk to the executor.      */
 /* Please never reach directly to the device.      */
 /* ----------------------------------------------- */
-/* 4A) Bluetooth Interpreter                       */
-/* 4B) Raspi interpreter TBD                       */
+/* 4A) Bluetooth + computer Interpreter            */
 /* 4C) bumper pin driver                           */ 
 /* *********************************************** */
 
-#include "BluetoothInterpreter.h"
+#include "CommandInterpreter.h"
 
 #ifdef HAVE_BUMPERS
   #include "Bumper.h"
@@ -119,13 +121,13 @@ void setup()
   MotorControl_init();
   Radar_init();
   CommandExecutor_init();
-  BluetoothInterpreter_init();
+  CommandInterpreter_init();
   Logger_log("FMG ready", 0);
 }
 
 void loop()
 {
-  BluetoothInterpreter_loop();
+  CommandInterpreter_loop();
   Radar_loop();
 #ifdef HAVE_BUMPERS
   Bumper_loop();
