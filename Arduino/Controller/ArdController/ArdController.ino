@@ -133,6 +133,7 @@ void loop()
   Bumper_loop();
 #endif
   CommandExecutor_loop();
+  LedLogger_loop();
 }
 
 

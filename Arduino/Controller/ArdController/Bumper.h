@@ -27,14 +27,12 @@ void Bumper_loop() {
   
   if (v1 != BUMPER_TRIGGERED && v2 != BUMPER_TRIGGERED) {
     // bumper is not triggered.
-    if (_bumper_state==1) Logger_log ("UNBUMP", 0);
     _bumper_state = 0;
     return;
   }
   else
   {
     if (_bumper_state==0) {
-        Logger_log ("BUMP", 0);
         CommandExecutor_Stop(); // we just hit something. Stop right away.
     }
     CommandExecutor_Slow(0); // keep it slow until vehicle is unstuck.

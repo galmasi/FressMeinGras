@@ -1,7 +1,7 @@
 /* ******************************************************** */
 /*    HOW SLOW IS SLOW?                                     */
 /* ******************************************************** */
-#define SLOW_LIMIT 48
+#define SLOW_LIMIT 32
 
 /* ******************************************************** */
 /* *    command executor state                            * */
@@ -25,7 +25,7 @@ inline void CommandExecutor_init()
   _ce_bwLimit = 0;
   _ce_turn = 0;
   _ce_speed = 0;
-  LedLogger_set(1,0,0); // red (not ready to move)
+  LedLogger_set(LEDLOGGER_STOP);
 }
 
 inline motorval_t CommandExecutor_limit (motorval_t n)
@@ -52,7 +52,7 @@ inline void CommandExecutor_Go ()
   _ce_bwLimit = 127;
   _ce_speed = 0;
   Logger_log ("GO", 0);
-  LedLogger_set(0,1,0); // green (ready to move)
+  LedLogger_set(LEDLOGGER_GO);
 }
 
 inline void CommandExecutor_Stop ()
@@ -62,7 +62,7 @@ inline void CommandExecutor_Stop ()
   _ce_bwLimit = 0;
   _ce_speed = 0;
   Logger_log("STOP",0);
-  LedLogger_set(1,0,0); // red (not ready to move)
+  LedLogger_set(LEDLOGGER_STOP);
 }
 
 // direction: 
@@ -78,7 +78,7 @@ void CommandExecutor_Slow(signed char dir)
   if (dir < 0) _ce_bwLimit = 0;
   _ce_speed = 0;
   Logger_log("SLOW",dir);
-  LedLogger_set(1,1,0); // orange/yellow
+  LedLogger_set(LEDLOGGER_SLOW);
 }
 
 inline void CommandExecutor_Left(motorval_t n)
@@ -142,8 +142,12 @@ inline void CommandExecutor_loop()
 #ifdef HAVE_HEARTBEAT
   if (millis() > (_ce_lastHeartBeat + 1000)) {
     // we lost communication with RC
-    Logger_log("No heartbeat", 0);
-    CommandExecutor_Stop();
+    if (_ce_lastHeartBeat>0) {
+      CommandExecutor_Stop();
+      Logger_log("No heartbeat", 0);
+      LedLogger_set(LEDLOGGER_NOHEARTBEAT);
+    }
+    _ce_lastHeartBeat=0;
   }
 #endif
 }
