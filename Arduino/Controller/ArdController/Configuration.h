@@ -22,6 +22,7 @@
   #define HAVE_HEARTBEAT 1
   #define HAVE_SERIALPORT 1
   #define MOTOR_LEGO 1
+  //#define HAVE_COMPUTER 1
 
 #elif defined(TOYROBOT)
   // #define HAVE_BUMPERS  -- no bumpers

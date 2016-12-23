@@ -17,32 +17,29 @@ void LedLogger_init() {
     
 void LedLogger_set(byte newstate) {
   _led_state = newstate;
-  switch (_led_state) {
-    case LEDLOGGER_STOP: {
-      digitalWrite(LEDRED_PIN, 0);
-      digitalWrite(LEDGRN_PIN, 1);
-      digitalWrite(LEDBLU_PIN, 1);
-      break;
-    }
-    case LEDLOGGER_GO: {
+  if (_led_state == LEDLOGGER_GO) {
       digitalWrite(LEDRED_PIN, 1);
       digitalWrite(LEDGRN_PIN, 0);
       digitalWrite(LEDBLU_PIN, 1);
-      break;
     }
+  else if (_led_state == LEDLOGGER_STOP) {
+    int x = (millis()/500)&1;
+    digitalWrite(LEDRED_PIN, x);
+    digitalWrite(LEDGRN_PIN, 1);
+    digitalWrite(LEDBLU_PIN, 1);
   }  
 }
 
 void LedLogger_loop ()
 {
   if (_led_state == LEDLOGGER_SLOW) {
-    int x = (millis()/500)%1;
+    int x = (millis()/500)&1;
     digitalWrite(LEDRED_PIN, x);
-    digitalWrite(LEDGRN_PIN, x);
-    digitalWrite(LEDBLU_PIN, 1);
+    digitalWrite(LEDGRN_PIN, 1);
+    digitalWrite(LEDBLU_PIN, x);
   }
   else if (_led_state == LEDLOGGER_NOHEARTBEAT) {
-    int x = (millis()/100)%1;
+    int x = (millis()/100)&1;
     digitalWrite(LEDRED_PIN, x);
     digitalWrite(LEDGRN_PIN, 1);
     digitalWrite(LEDBLU_PIN, 1);

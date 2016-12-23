@@ -39,7 +39,7 @@ class CommandInterpreter
 
   inline void loop() {
     if (!_serial) return;
-    if (!_serial->available()) return;
+    if (_serial->available()<=0) return;
     char c = _serial->read();
     if (_mode == COMMAND_MODE)
       switch (c) {
@@ -139,8 +139,10 @@ inline void CommandInterpreter_init()
 
 inline void CommandInterpreter_loop()
 {
+  btSerial.listen();
   btinterp.loop();
 #ifdef HAVE_COMPUTER
+  ctSerial.listen();
   cinterp.loop();
 #endif
 }

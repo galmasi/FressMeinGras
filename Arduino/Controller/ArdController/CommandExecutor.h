@@ -25,6 +25,7 @@ inline void CommandExecutor_init()
   _ce_bwLimit = 0;
   _ce_turn = 0;
   _ce_speed = 0;
+  Logger_log("commandexec_init", 0);
   LedLogger_set(LEDLOGGER_STOP);
 }
 
@@ -129,10 +130,12 @@ inline void CommandExecutor_HeartBeat()
   // from the controller.
   // Any command should be taken as a heartbeat, so move the hearbeat
   // outside this case statement
+  if (_ce_lastHeartBeat == 0) CommandExecutor_Stop();
   _ce_lastHeartBeat = millis();
+  Logger_log("commandexec_heartbeat", 0);
 }
 
-/* ******************************************************** */
+/* ********************************g************************ */
 /*          update LEDs, check heartbeat etc.               */
 /* ******************************************************** */
 inline void CommandExecutor_loop()
