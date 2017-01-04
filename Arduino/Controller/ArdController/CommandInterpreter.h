@@ -123,8 +123,7 @@ SoftwareSerial btSerial(BTSERIAL_RX,BTSERIAL_TX);
 CommandInterpreter btinterp(true); // privileged
 
 #ifdef HAVE_COMPUTER
-  SoftwareSerial ctSerial(CSERIAL_RX, CSERIAL_TX);
-  CommandInterpreter cinterp;
+  CommandInterpreter cinterp(true);
 #endif
 
 inline void CommandInterpreter_init()
@@ -132,8 +131,8 @@ inline void CommandInterpreter_init()
   btSerial.begin(9600);
   btinterp.setSerial(&btSerial);
 #ifdef HAVE_COMPUTER
-  ctSerial.begin(9600);
-  cinterp.setSerial(&ctSerial);
+  Serial.begin(9600);
+  cinterp.setSerial(&Serial);
 #endif
 }
 
@@ -142,7 +141,6 @@ inline void CommandInterpreter_loop()
   btSerial.listen();
   btinterp.loop();
 #ifdef HAVE_COMPUTER
-  ctSerial.listen();
   cinterp.loop();
 #endif
 }

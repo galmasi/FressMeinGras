@@ -23,8 +23,7 @@ void LedLogger_set(byte newstate) {
       digitalWrite(LEDBLU_PIN, 1);
     }
   else if (_led_state == LEDLOGGER_STOP) {
-    int x = (millis()/500)&1;
-    digitalWrite(LEDRED_PIN, x);
+    digitalWrite(LEDRED_PIN, 0);
     digitalWrite(LEDGRN_PIN, 1);
     digitalWrite(LEDBLU_PIN, 1);
   }  

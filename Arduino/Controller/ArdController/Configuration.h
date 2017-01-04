@@ -1,11 +1,12 @@
+
 /* *************************************************************** */
 /* pre-selected configurations. pick one!                          */
 /* *************************************************************** */
 
-#define LEGOPANZER 1
+//#define LEGOPANZER 1
 // #define TOYROBOT 1
 // #define MODEL_T 1
-//#define KUBELWAGEN 1
+#define KUBELWAGEN 1
 
 
 /* *************************************************************** */
@@ -38,7 +39,7 @@
   #define MOTOR_SABERTOOTH 1
 
 #elif defined(KUBELWAGEN)
-  #define HAVE_BUMPERS 1
+  //#define HAVE_BUMPERS 1 - temporarily disabled because dismounted electronics
   #define BUMPER_NPN 1
   #define HAVE_HEARTBEAT 1
   // #define HAVE_SERIALPORT -- no serial port, since using sabertooth

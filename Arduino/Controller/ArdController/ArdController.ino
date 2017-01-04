@@ -19,9 +19,6 @@ char foo;
 #define RADAR_PINGPIN 10
 #define RADAR_PONGPIN 11
 
-#define CSERIAL_TX 10
-#define CSERIAL_RX 11
-
 #define BUMPER_PIN_0 A0
 #define BUMPER_PIN_1 A1
 
