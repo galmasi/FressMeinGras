@@ -39,7 +39,7 @@
   #define MOTOR_SABERTOOTH 1
 
 #elif defined(KUBELWAGEN)
-  //#define HAVE_BUMPERS 1 - temporarily disabled because dismounted electronics
+  #define HAVE_BUMPERS 1
   #define BUMPER_NPN 1
   #define HAVE_HEARTBEAT 1
   // #define HAVE_SERIALPORT -- no serial port, since using sabertooth

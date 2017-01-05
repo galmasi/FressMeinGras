@@ -32,16 +32,32 @@ void LedLogger_set(byte newstate) {
 void LedLogger_loop ()
 {
   if (_led_state == LEDLOGGER_SLOW) {
+    // fast pink blink
     int x = (millis()/500)&1;
     digitalWrite(LEDRED_PIN, x);
     digitalWrite(LEDGRN_PIN, 1);
     digitalWrite(LEDBLU_PIN, x);
   }
   else if (_led_state == LEDLOGGER_NOHEARTBEAT) {
+    // fast red blink
     int x = (millis()/100)&1;
     digitalWrite(LEDRED_PIN, x);
     digitalWrite(LEDGRN_PIN, 1);
     digitalWrite(LEDBLU_PIN, 1);
   }
+  else if (_led_state == LEDLOGGER_STOP) {
+    // very slow blink red and nothing
+    int x = (millis()/1000)&1;
+    digitalWrite(LEDRED_PIN, x);
+    digitalWrite(LEDGRN_PIN, 1);
+    digitalWrite(LEDBLU_PIN, 1);
+  }  
+  else if (_led_state == LEDLOGGER_GO) {
+    // very slow blink blue and green
+    int x = (millis()/1000)&1;
+    digitalWrite(LEDRED_PIN, 1);
+    digitalWrite(LEDGRN_PIN, x);
+    digitalWrite(LEDBLU_PIN, 1-x);
+  }  
 }
 
