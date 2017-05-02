@@ -5,9 +5,9 @@
 
 //#define LEGOPANZER 1
 // #define TOYROBOT 1
-// #define MODEL_T 1
-#define KUBELWAGEN 1
-
+//#define MODEL_T 1
+//#define KUBELWAGEN 1
+#define REDBARON 1
 
 /* *************************************************************** */
 /* These defines determine what features each configuration uses.  */
@@ -45,6 +45,11 @@
   // #define HAVE_SERIALPORT -- no serial port, since using sabertooth
   #define MOTOR_SABERTOOTH 1
   #define HAVE_COMPUTER 1
+  
+#elif defined(REDBARON)
+  // no bumpers, no computer
+  #define HAVE_HEARTBEAT 1
+  #define MOTOR_SABERTOOTH 1
 
 #else
   #error "You have to choose one of (lego,toy,model_t,jeep). See top of Configuration.h"
