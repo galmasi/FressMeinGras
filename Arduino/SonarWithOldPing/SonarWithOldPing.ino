@@ -9,6 +9,15 @@
 #define trigPin5 5
 #define echoPin5 4
 
+
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_HMC5883_U.h>
+
+/* Assign a unique ID to this sensor at the same time */
+Adafruit_HMC5883_Unified mag = Adafruit_HMC5883_Unified(12345);
+
+
 void setup() {
   Serial.begin (9600);
   pinMode(trigPin1, OUTPUT);
@@ -21,11 +30,14 @@ void setup() {
   pinMode(echoPin4, INPUT);
   pinMode(trigPin5, OUTPUT);
   pinMode(echoPin5, INPUT);
+    
+  mag.begin();
 }
 
 void loop() {
   long duration;
-  float distance1, distance2, distance3, distance4, distance5;
+  float distance1, distance2, distance3, distance4, distance5, heading;
+  sensors_event_t event; 
 
   digitalWrite(trigPin1, LOW);
   delayMicroseconds(2);
@@ -72,6 +84,14 @@ void loop() {
   duration = pulseIn(echoPin4, HIGH);
   distance4 = (duration/2) / 29.1;
   delay(50);
+  
+  mag.getEvent(&event);
+  heading = atan2(event.magnetic.y, event.magnetic.x)*180/3.14159;
+  
+ 
+  
+  Serial.print(heading);
+  Serial.print(" ");
   Serial.print(distance1);
   Serial.print(" ");
   Serial.print(distance2);
